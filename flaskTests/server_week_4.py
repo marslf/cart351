@@ -11,3 +11,7 @@ def another():
     return render_template("pineapples_2.html")
 
 app.run(debug=True)
+@app.route('/three')
+def three():
+    someNewVar = "Sabine"
+    return render_template("pineapples_3.html", my_variable = someNewVar)
