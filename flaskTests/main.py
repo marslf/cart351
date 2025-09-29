@@ -2,6 +2,7 @@ from flask import Flask
 
 app = Flask(__name__) # a python key term (anything with framed with _x_)
 
+
 #HOMEPAGE
 @app.route("/") # @ = decorator = app.route knows that since it is directly on top of def index it means that it is directly connected with it (+ adds a bunch of stuff on it)
 def index(): # view function
@@ -27,17 +28,19 @@ def another_route(dynamicVar):
 #add debug=True inside of app.run(HERE) = enter debig mode to find out what is going wrong
 #dont forget to turn off debig when youre done developping
 
+#-------------------------------
+
 #ROUTING EXERCISE : CAT LATIN
 @app.route("/catlatin/<catname>")
 def cat_latin(catname):
-    # rule A: if it does NOT end in 'y'
+    #A: if it does not end in y = add y
     if not catname.endswith("y"):
-        converted = catname + "y"
+        newcatname = catname + "y"
+    #B: if it ends in y = replace y with iful
     else:
-        # rule B: if it DOES end in 'y'
-        converted = catname[:-1] + "iful"
+        newcatname = catname[:-1] + "iful"
     
-    return f"<h2>{catname} in Cat-Latin is: <span style='color:green'>{converted}</span></h2>"
+    return f"<h2>{catname} in Cat-Latin is: <span style='color:green'>{newcatname}</span></h2>"
 
 
 app.run()
