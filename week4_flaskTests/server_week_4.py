@@ -15,3 +15,9 @@ app.run(debug=True)
 def three():
     someNewVar = "Sabine"
     return render_template("pineapples_3.html", my_variable = someNewVar)
+
+@app.route('/four')
+def four():
+    return render_template("pineapples_4.html")
+
+app.run(debug=True)
