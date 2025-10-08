@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Result</title>
+</head>
+
+<body>
+    <h2>{{ result }}</h2>
+    <p>The cleaner city was: {{ correct_city }}</p>
+    <p>Your total score: {{ points }}</p>
+    <a href="{{ url_for('game') }}">Next Round</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Start</a>
+</body>
+
+</html>

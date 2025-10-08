@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Air!</title>
+    <style>
+        body {
+            background-color: #e6f7ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h2 {
+            color: #0077b6;
+        }
+
+        .score {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .city {
+            display: inline-block;
+            background-color: #ffffff;
+            border: 2px solid #0077b6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px;
+            width: 250px;
+            transition: transform 0.2s ease;
+        }
+
+        .city:hover {
+            transform: scale(1.05);
+        }
+
+        .guess-btn {
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .guess-btn:hover {
+            background-color: #005f87;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>🌬️ Score: {{ points }}</h2>
+    <p>Which city has cleaner air?</p>
+
+    <div class="city">
+        <form method="post" action="{{ url_for('guess') }}">
+            <input type="hidden" name="city1" value="{{ city1 }}">
+            <input type="hidden" name="city2" value="{{ city2 }}">
+            <input type="hidden" name="aqi1" value="{{ aqi1 }}">
+            <input type="hidden" name="aqi2" value="{{ aqi2 }}">
+            <button class="guess-btn" type="submit" name="city" value="{{ city1 }}">{{ city1 }}</button>
+        </form>
+    </div>
+
+    <div class="city">
+        <form method="post" action="{{ url_for('guess') }}">
+            <input type="hidden" name="city1" value="{{ city1 }}">
+            <input type="hidden" name="city2" value="{{ city2 }}">
+            <input type="hidden" name="aqi1" value="{{ aqi1 }}">
+            <input type="hidden" name="aqi2" value="{{ aqi2 }}">
+            <button class="guess-btn" type="submit" name="city" value="{{ city2 }}">{{ city2 }}</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
