@@ -22,19 +22,19 @@
             font-size: 1.2em;
         }
 
-        .difficulty-btn {
-            margin: 15px;
+        .start-btn {
+            margin: 10px;
             background-color: #0077b6;
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
             font-size: 1.2em;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .difficulty-btn:hover {
+        .start-btn:hover {
             background-color: #005f87;
         }
     </style>
@@ -43,13 +43,26 @@
 <body>
 
     <h1>🌍 Guess the Air! 🌤️</h1>
-    <p>Select your difficulty:</p>
+    <p>Choose a difficulty and start guessing!</p>
 
-    <form action="{{ url_for('game') }}" method="get">
-        <button class="difficulty-btn" name="difficulty" value="easy">Easy</button>
-        <button class="difficulty-btn" name="difficulty" value="medium">Medium</button>
-        <button class="difficulty-btn" name="difficulty" value="hard">Hard</button>
-    </form>
+
+    <!-- Difficulty buttons -->
+    <div>
+        <form action="/game" method="get" style="display:inline;">
+            <input type="hidden" name="difficulty" value="easy">
+            <button class="start-btn">Easy</button>
+        </form>
+
+        <form action="/game" method="get" style="display:inline;">
+            <input type="hidden" name="difficulty" value="medium">
+            <button class="start-btn">Medium</button>
+        </form>
+
+        <form action="/game" method="get" style="display:inline;">
+            <input type="hidden" name="difficulty" value="hard">
+            <button class="start-btn">Hard</button>
+        </form>
+    </div>
 
 </body>
 

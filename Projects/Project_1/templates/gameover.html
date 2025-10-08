@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Game Over</title>
+    <style>
+        body {
+            background-color: #e6f7ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.5em;
+        }
+
+        .btn {
+            margin: 15px;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #005f87;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>💨 Game Over!</h1>
+    <p>Your final score: {{ points }}</p>
+    <form action="{{ url_for('index') }}">
+        <button class="btn">Play Again</button>
+    </form>
+</body>
+
+</html>

@@ -27,8 +27,9 @@ HARD_CITIES = [
     "Reykjavik", "Tallinn", "Vilnius", "Luxembourg", "Valletta", "Monaco", "San Marino", "Andorra la Vella", "Vaduz"
 ]
 
-#dictionary to keep track of score
+#GAME STATS
 score = {"points": 0}
+lives = {"count": 3}
 
 
 app = Flask(__name__)
@@ -47,7 +48,7 @@ def get_city_data(city):
     else:
         return None
     
-# pick 2 different random cities
+# PICK 2 RANDOM CITIES depending on DIFFICULTY
 def get_two_cities(difficulty):
     if difficulty == "easy":
         cities = EASY_CITIES
@@ -60,10 +61,13 @@ def get_two_cities(difficulty):
     return city1, city2
 
 
+# ----- ROUTES -----
+
 # HOMEPAGE ROUTE
 @app.route("/")
 def index():
     score["points"] = 0  # reset score
+    lives["count"] = 3  # reset lives
     return render_template("index.html")
 
 
@@ -73,48 +77,67 @@ def game():
     # get difficulty from homepage buttons (default = easy)
     difficulty = request.args.get("difficulty", "easy")
 
+    current_lives = int(request.args.get("lives", lives["count"]))
+    lives["count"] = current_lives
+
     # pick two random cities
     city1, city2 = get_two_cities(difficulty)
-
     # get their air data
     data1 = get_city_data(city1)
     data2 = get_city_data(city2)
 
     # make sure both cities returned valid data
     if not data1 or not data2:
-        return redirect(url_for("game"))  # retry if something failed
+        return redirect(url_for("game"))  # retry if fail
 
     # get their AQI values
     aqi1 = int(data1["aqi"]) if data1["aqi"].isdigit() else 999
     aqi2 = int(data2["aqi"]) if data2["aqi"].isdigit() else 999
 
     # pass data to template
-    return render_template("game.html", city1=city1, city2=city2, aqi1=aqi1, aqi2=aqi2, points=score["points"], difficulty=difficulty)
+    return render_template("game.html", 
+                           city1=city1, city2=city2, 
+                           aqi1=aqi1, aqi2=aqi2, 
+                           points=score["points"], 
+                           difficulty=difficulty,
+                           lives=lives["count"])
 
 
 # CHECK WHICH CITY IS CLEANER 
 @app.route("/guess", methods=["POST"])
 def guess():
-    # get form data from the HTML buttons
+    # get form data from player input (HTML buttons)
     chosen_city = request.form.get("city")
     city1 = request.form.get("city1")
     city2 = request.form.get("city2")
     aqi1 = int(request.form.get("aqi1"))
     aqi2 = int(request.form.get("aqi2"))
     difficulty = request.form.get("difficulty")
+    current_lives = int(request.form.get("lives", lives["count"]))
+    lives["count"] = current_lives
 
     # determine which city is cleaner (lower AQI = cleaner air)
     correct_city = city1 if aqi1 < aqi2 else city2
 
-    # check if user guessed right
+    # check answer
     if chosen_city == correct_city:
         score["points"] += 1
         result = "Correct! 🌿"
     else:
         result = "Wrong! 💨"
+        lives["count"] = max(0, current_lives - 1)
+
+    # if lives = 0 = game over 
+    if lives["count"] <= 0:
+        return render_template("gameover.html", points=score["points"])
 
     # show result screen
-    return render_template("result.html", result=result, correct_city=correct_city, points=score["points"], difficulty=difficulty)
+    return render_template("result.html", 
+                           result=result, 
+                           correct_city=correct_city, 
+                           points=score["points"], 
+                           difficulty=difficulty,
+                           lives=lives["count"])
 
 if __name__ == "__main__":
     app.run(debug=True)

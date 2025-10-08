@@ -38,6 +38,11 @@
         .btn:hover {
             background-color: #005f87;
         }
+
+        .lives {
+            font-size: 1.1em;
+            color: #ff4d4d;
+        }
     </style>
 </head>
 
@@ -47,13 +52,25 @@
     <p>The cleaner city was: {{ correct_city }}</p>
     <p>Current Score: {{ points }}</p>
 
-    <!-- Play next round (same difficulty) -->
+    <!-- lives display -->
+    <p class="lives">{% for i in range(lives) %}
+        ❤️
+        {% endfor %}</p>
+
+    {% if lives > 0 %}
     <form action="{{ url_for('game') }}" method="get">
         <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <input type="hidden" name="lives" value="{{ lives }}">
         <button class="btn" type="submit">Next Round</button>
     </form>
+    {% else %}
+    <h2>💀 Game Over!</h2>
+    <p>You ran out of lives.</p>
+    <form action="{{ url_for('index') }}" method="get">
+        <button class="btn" type="submit">Play Again</button>
+    </form>
+    {% endif %}
 
-    <!-- Go back to start (resets score) -->
     <form action="{{ url_for('index') }}" method="get">
         <button class="btn" type="submit">Back to Start</button>
     </form>
