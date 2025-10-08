@@ -6,7 +6,6 @@
     <title>Guess the Air!</title>
     <style>
         body {
-            background-color: #e6f7ff;
             font-family: Arial, sans-serif;
             text-align: center;
             padding-top: 50px;
@@ -46,7 +45,11 @@
     </style>
 </head>
 
-<body>
+<body style="background-color:
+    {% if difficulty == 'easy' %}#b5d1ff
+    {% elif difficulty == 'medium' %}#b8c7de
+    {% elif difficulty == 'hard' %}#afbac9
+    {% else %}#e6f7ff{% endif %};">
 
     <h2>🌬️ Score: {{ points }}</h2>
 
