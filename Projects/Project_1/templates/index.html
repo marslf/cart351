@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Air!</title>
+    <style>
+        /* simple page styling */
+        body {
+            background-color: #e6f7ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #0077b6;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .start-btn {
+            margin-top: 40px;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background-color: #005f87;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌤️ Guess the Air!</h1>
+    <p>Can you tell which city has cleaner air?</p>
+
+    <!-- Start Game button -->
+    <form action="/game" method="get">
+        <button class="start-btn">Start Game</button>
+    </form>
+
+</body>
+
+</html>
