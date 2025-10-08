@@ -138,7 +138,7 @@ def guess():
     # check answer
     if chosen_city == correct_city:
         score["points"] += 1
-        result = "Correct! 🌿"
+        result = "Correct! 🌤️"
     else:
         result = "Wrong! 💨"
         lives["count"] = max(0, current_lives - 1)

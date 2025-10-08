@@ -43,6 +43,56 @@
             font-size: 1.1em;
             color: #ff4d4d;
         }
+
+        /* Sun rays for correct */
+        @keyframes sunburst {
+            0% {transform: translate(-50%, -50%) scale(0.2); opacity: 1;}
+
+            50% {transform: translate(-50%, -50%) scale(1.2); opacity: 0.8;}
+
+            100% {transform: translate(-50%, -50%) scale(1); opacity: 0;}
+        }
+
+        .sunburst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+            background: radial-gradient(circle, yellow 20%, transparent 80%);
+            border-radius: 50%;
+            animation: sunburst 1s ease-out forwards;
+            transform: translate(-50%, -50%) scale(0.2);
+            z-index: 1000;
+        }
+
+        /* Puff for wrong */
+        @keyframes smokePuff {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .smoke {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            background: radial-gradient(circle, #ccc 30%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            animation: smokePuff 1s ease-out forwards;
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -55,6 +105,14 @@
     text-align: center;
     padding-top: 80px;">
 
+    <!-- Container for animations -->
+    <div id="animation-container"></div>
+
+    <!-- Audio -->
+    <audio id="correctSound" src="{{ url_for('static', filename='sounds/correct.wav') }}"></audio>
+    <audio id="wrongSound" src="{{ url_for('static', filename='sounds/wrong.wav') }}"></audio>
+
+    <!-- Result info -->
     <h1>{{ result }}</h1>
     <p>The cleaner city was: {{ correct_city }}</p>
     <p>Current Score: {{ points }}</p>
@@ -64,6 +122,7 @@
         ❤️
         {% endfor %}</p>
 
+    <!-- Next round / game over buttons -->
     {% if lives > 0 %}
     <form action="{{ url_for('game') }}" method="get">
         <input type="hidden" name="difficulty" value="{{ difficulty }}">
@@ -81,6 +140,40 @@
     <form action="{{ url_for('index') }}" method="get">
         <button class="btn" type="submit">Back to Start</button>
     </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {  // added DOMContentLoaded wrapper
+            const result = "{{ result }}";
+            const container = document.getElementById("animation-container");
+
+            if (result.includes("Correct")) {
+                // play correct sound
+                const correctSound = document.getElementById("correctSound");
+                if (correctSound) correctSound.play();
+
+                // create sunburst animation
+                const sun = document.createElement("div");
+                sun.classList.add("sunburst");
+                container.appendChild(sun);
+
+                // remove after animation ends
+                setTimeout(() => sun.remove(), 1200);
+
+            } else if (result.includes("Wrong")) {
+                // play wrong sound
+                const wrongSound = document.getElementById("wrongSound");
+                if (wrongSound) wrongSound.play();
+
+                // create smoke puff animation
+                const puff = document.createElement("div");
+                puff.classList.add("smoke");
+                container.appendChild(puff);
+
+                // remove after animation ends
+                setTimeout(() => puff.remove(), 1200);
+            }
+        });
+    </script>
 
 </body>
 
