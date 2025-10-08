@@ -4,7 +4,15 @@ import random
 
 # --- GAME SETTINGS ---
 # list of cities to randomly pick from
-CITIES = ["Montreal", "Tokyo", "Paris", "Mexico City", "Toronto", "Beijing", "New York", "Sydney", "London", "Delhi"]
+CITIES = [
+    "Montreal", "Toronto", "Vancouver", "New York", "Los Angeles", "Chicago", "Mexico City", "Houston", "Miami", "San Francisco", "Boston", "Washington D.C.", "Seattle", "Atlanta", "Denver",
+    "Buenos Aires", "Rio de Janeiro", "São Paulo", "Santiago", "Lima", "Bogotá", "Quito", "Caracas", "Montevideo", "La Paz",
+    "London", "Paris", "Berlin", "Rome", "Madrid", "Lisbon", "Amsterdam", "Brussels", "Copenhagen", "Stockholm", "Oslo", "Helsinki", "Warsaw", "Vienna", "Athens", "Prague", "Budapest", "Dublin", "Zurich", "Edinburgh",
+    "Tokyo", "Seoul", "Beijing", "Shanghai", "Hong Kong", "Singapore", "Bangkok", "Delhi", "Mumbai", "Kolkata", "Karachi", "Jakarta", "Kuala Lumpur", "Manila", "Tehran", "Baghdad", "Riyadh", "Dhaka",
+    "Cairo", "Lagos", "Nairobi", "Johannesburg", "Cape Town", "Casablanca", "Accra", "Addis Ababa", "Dakar", "Algiers",
+    "Sydney", "Melbourne", "Auckland", "Wellington", "Brisbane", "Perth", "Adelaide", "Hobart",
+    "Reykjavik", "Tallinn", "Vilnius", "Helsinki", "Luxembourg", "Valletta", "Monaco", "San Marino", "Andorra la Vella", "Vaduz"
+]
 
 #dictionary to keep track of score
 score = {"points": 0}
@@ -35,6 +43,7 @@ def get_two_cities():
 # HOMEPAGE ROUTE
 @app.route("/")
 def index():
+    score["points"] = 0  # reset score
     return render_template("index.html")
 
 
