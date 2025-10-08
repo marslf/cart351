@@ -94,13 +94,29 @@ def game():
     aqi1 = int(data1["aqi"]) if data1["aqi"].isdigit() else 999
     aqi2 = int(data2["aqi"]) if data2["aqi"].isdigit() else 999
 
-    # pass data to template
-    return render_template("game.html", 
-                           city1=city1, city2=city2, 
-                           aqi1=aqi1, aqi2=aqi2, 
-                           points=score["points"], 
-                           difficulty=difficulty,
-                           lives=lives["count"])
+    cloud_count = 0
+    if difficulty == "easy":
+        cloud_count = 3
+    elif difficulty == "medium":
+        cloud_count = 6
+    elif difficulty == "hard":
+        cloud_count = 9
+
+    clouds = []
+    for _ in range(cloud_count):
+        clouds.append({
+            "top": random.randint(5, 200), # y position
+            "left": random.randint(-10, 80), # starting x position
+            "duration": random.randint(25, 45) # movement speed
+        })
+        
+    return render_template("game.html",
+                       city1=city1, city2=city2,
+                       aqi1=aqi1, aqi2=aqi2,
+                       points=score["points"],
+                       difficulty=difficulty,
+                       lives=lives["count"],
+                       clouds=clouds)
 
 
 # CHECK WHICH CITY IS CLEANER 

@@ -46,7 +46,14 @@
     </style>
 </head>
 
-<body>
+<body style="background-color: 
+    {% if difficulty == 'easy' %}#b5d1ff
+    {% elif difficulty == 'medium' %}#b8c7de
+    {% elif difficulty == 'hard' %}#afbac9
+    {% else %}#e6f7ff{% endif %};
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 80px;">
 
     <h1>{{ result }}</h1>
     <p>The cleaner city was: {{ correct_city }}</p>
