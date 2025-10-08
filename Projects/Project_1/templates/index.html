@@ -22,19 +22,19 @@
             font-size: 1.2em;
         }
 
-        .start-btn {
-            margin-top: 40px;
+        .difficulty-btn {
+            margin: 15px;
             background-color: #0077b6;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 40px;
             font-size: 1.2em;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .start-btn:hover {
+        .difficulty-btn:hover {
             background-color: #005f87;
         }
     </style>
@@ -43,10 +43,12 @@
 <body>
 
     <h1>🌍 Guess the Air! 🌤️</h1>
-    <p>Can you tell which city has cleaner air?</p>
+    <p>Select your difficulty:</p>
 
-    <form action="/game" method="get">
-        <button class="start-btn">Start Game</button>
+    <form action="{{ url_for('game') }}" method="get">
+        <button class="difficulty-btn" name="difficulty" value="easy">Easy</button>
+        <button class="difficulty-btn" name="difficulty" value="medium">Medium</button>
+        <button class="difficulty-btn" name="difficulty" value="hard">Hard</button>
     </form>
 
 </body>

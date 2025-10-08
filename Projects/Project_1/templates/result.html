@@ -9,59 +9,54 @@
             background-color: #e6f7ff;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 60px;
+            padding-top: 80px;
         }
 
-        h2 {
+        h1 {
+            font-size: 3em;
             color: #0077b6;
-            font-size: 2.5em;
         }
 
         p {
             font-size: 1.2em;
-            margin: 10px 0;
+            color: #333;
+            margin: 20px;
         }
 
-        .next-btn,
-        .home-btn {
-            margin-top: 20px;
+        .btn {
+            margin: 15px;
             background-color: #0077b6;
             color: white;
             border: none;
-            padding: 12px 25px;
-            font-size: 1em;
-            border-radius: 6px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-decoration: none;
         }
 
-        .next-btn:hover,
-        .home-btn:hover {
+        .btn:hover {
             background-color: #005f87;
-        }
-
-        .buttons {
-            margin-top: 30px;
         }
     </style>
 </head>
 
 <body>
 
-    <h2>{{ result }}</h2>
-    <p>The cleaner city was: <strong>{{ correct_city }}</strong></p>
-    <p>Your total score: {{ points }}</p>
+    <h1>{{ result }}</h1>
+    <p>The cleaner city was: {{ correct_city }}</p>
+    <p>Current Score: {{ points }}</p>
 
-    <div class="buttons">
-        <form action="{{ url_for('game') }}" method="get" style="display:inline-block;">
-            <button class="next-btn">Next Round</button>
-        </form>
+    <!-- Play next round (same difficulty) -->
+    <form action="{{ url_for('game') }}" method="get">
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <button class="btn" type="submit">Next Round</button>
+    </form>
 
-        <form action="{{ url_for('index') }}" method="get" style="display:inline-block; margin-left:15px;">
-            <button class="home-btn">Back to Start</button>
-        </form>
-    </div>
+    <!-- Go back to start (resets score) -->
+    <form action="{{ url_for('index') }}" method="get">
+        <button class="btn" type="submit">Back to Start</button>
+    </form>
 
 </body>
 
