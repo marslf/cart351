@@ -10,15 +10,15 @@ import random
 
 # list of cities to randomly pick from based on difficulty level
 
-# EASY = well-known popular cities
+# EASY
 EASY_CITIES = ["Montreal", "Toronto", "New York", "London", "Paris", "Tokyo", "Sydney", "Lisbon", "Singapore"]
 
-# MEDIUM = mix of well-known + slightly unusual
+# MEDIUM
 MEDIUM_CITIES = EASY_CITIES + [
     "Beijing", "Mexico City", "Rio de Janeiro", "Moscow", "Bangkok", "Delhi", "Los Angeles", "Berlin", "Madrid", "Rome", "Edinburgh", "Monaco", "Lisbon", "Singapore"
 ]
 
-# HARD = the full long list you asked for
+# HARD
 HARD_CITIES = [
     "Montreal", "Toronto", "Vancouver", "New York", "Los Angeles", "Chicago", "Mexico City", "Houston",
     "Miami", "San Francisco", "Boston", "Washington D.C.", "Seattle", "Atlanta", "Denver",
@@ -43,6 +43,7 @@ app = Flask(__name__)
 # API token for World Air Quality Index
 TOKEN = "81fb791c686ee1a615e96b00aa157e6f186d216c"
 
+# Fetch live air quality data for a city from the World Air Quality Index API
 def get_city_data(city):
     
     url = "https://api.waqi.info/search/"
@@ -99,6 +100,7 @@ def game():
     aqi1 = int(data1["aqi"]) if data1["aqi"].isdigit() else 999
     aqi2 = int(data2["aqi"]) if data2["aqi"].isdigit() else 999
 
+    # number of clouds determined by the difficulty (higher difficulty = more clouds)
     cloud_count = 0
     if difficulty == "easy":
         cloud_count = 3
@@ -151,7 +153,9 @@ def guess():
     # if lives = 0 = game over 
     if lives["count"] <= 0:
         total_rounds = score["points"] + (3 - lives["count"])  # total attempts = wins + losses
+        # Calculate overall accuracy as percentage of correct guesses
         accuracy = (score["points"] / total_rounds * 100) if total_rounds > 0 else 0
+        # Assign an emoji based on accuracy to display on the Game Over screen
         mood_icon = "🌞" if accuracy >= 60 else "🌤️" if accuracy >= 30 else "☁️"
         return render_template("gameover.html", 
                            points=score["points"], 
@@ -167,4 +171,4 @@ def guess():
                            lives=lives["count"])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
