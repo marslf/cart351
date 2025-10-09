@@ -1,3 +1,8 @@
+ #Sound Credits:
+#"Air Puff" by waymonds (2025) — https://freesound.org/people/waymonds/sounds/817695/
+#"Bell ding 3.wav" by 5ro4 (2021) — https://freesound.org/people/5ro4/sounds/611111/
+#Both used under Creative Commons license from Freesound.org
+
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 import random
@@ -145,7 +150,13 @@ def guess():
 
     # if lives = 0 = game over 
     if lives["count"] <= 0:
-        return render_template("gameover.html", points=score["points"])
+        total_rounds = score["points"] + (3 - lives["count"])  # total attempts = wins + losses
+        accuracy = (score["points"] / total_rounds * 100) if total_rounds > 0 else 0
+        mood_icon = "🌞" if accuracy >= 60 else "🌤️" if accuracy >= 30 else "☁️"
+        return render_template("gameover.html", 
+                           points=score["points"], 
+                           accuracy=round(accuracy, 1),
+                           mood_icon=mood_icon)
 
     # show result screen
     return render_template("result.html", 

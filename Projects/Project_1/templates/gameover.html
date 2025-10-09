@@ -21,6 +21,20 @@
             font-size: 1.5em;
         }
 
+        .summary {
+            margin-top: 30px;
+            background-color: #ffffff33;
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #00000033;
+        }
+
+        .mood {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
         .btn {
             margin: 15px;
             background-color: #0077b6;
@@ -39,9 +53,25 @@
     </style>
 </head>
 
-<body>
+<body style="background-color: 
+    {% if accuracy >= 60 %}#b5d1ff
+    {% elif accuracy >= 30 %}#b8c7de
+    {% else %}#afbac9{% endif %};
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 80px;">
     <h1>🌪️ Game Over! ☠️</h1>
-    <p>Your final score: {{ points }}</p>
+
+    <!-- Summary Box -->
+    <div class="summary">
+        <div class="mood">{{ mood_icon }}</div> <!-- icon based on performance -->
+        <p>Your final score: {{ points }}</p>
+        <p>Accuracy: {{ accuracy }}%</p>
+        <p>{% if accuracy >= 60 %}Great job! The skies are clear! {% elif accuracy >= 30 %}Not bad — a bit mucky!
+            {%
+            else %}Quite a bit of smog here... try again! {% endif %}</p>
+    </div>
+
     <form action="{{ url_for('index') }}">
         <button class="btn">Play Again</button>
     </form>
