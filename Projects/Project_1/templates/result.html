@@ -46,19 +46,28 @@
 
         /* Sun rays for correct */
         @keyframes sunburst {
-            0% {transform: translate(-50%, -50%) scale(0.2); opacity: 1;}
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 1;
+            }
 
-            50% {transform: translate(-50%, -50%) scale(1.2); opacity: 0.8;}
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
 
-            100% {transform: translate(-50%, -50%) scale(1); opacity: 0;}
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
         }
 
         .sunburst {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
-            width: 200px;
-            height: 200px;
+            width: 500px;
+            height: 500px;
             pointer-events: none;
             background: radial-gradient(circle, yellow 20%, transparent 80%);
             border-radius: 50%;
@@ -68,6 +77,28 @@
         }
 
         /* Puff for wrong */
+        .smoke {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 450px;
+            height: 450px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .smoke-inner {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ccc 30%, transparent 70%);
+            border-radius: 50%;
+            animation: smokePuff 1s ease-out forwards;
+        }
+
         @keyframes smokePuff {
             0% {
                 transform: scale(0.5);
@@ -80,18 +111,16 @@
             }
         }
 
-        .smoke {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150px;
-            height: 150px;
+        #animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
-            background: radial-gradient(circle, #ccc 30%, transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            animation: smokePuff 1s ease-out forwards;
-            z-index: 1000;
+            z-index: 999;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
@@ -167,6 +196,9 @@
                 // create smoke puff animation
                 const puff = document.createElement("div");
                 puff.classList.add("smoke");
+                const inner = document.createElement("div");
+                inner.classList.add("smoke-inner");
+                puff.appendChild(inner);
                 container.appendChild(puff);
 
                 // remove after animation ends
