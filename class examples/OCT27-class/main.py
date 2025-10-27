@@ -8,6 +8,10 @@ app = Flask(__name__)
 #       the session data.
 app.secret_key = 'BAD_SECRET_KEY'
 
+UPLOAD_FOLDER = 'static/uploads' 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB limit
+
 @app.route("/")
 def index():
     return render_template("index.html",
@@ -118,6 +122,21 @@ def postRegFormFetch():
     app.logger.info(request.form)
     return ({"data_received":"success","f_name":request.form["f_name"]})
 
+# upload image route
+@app.route('/addPlantExtended')
+def addPlantExtended():
+    return render_template("addPlantExtended.html")
 
+@app.route("/postPlantFormFetch",methods = ['POST'])
+def postPlantFormFetch():
+     #key is the same as in the form :)
+    uploadedfile = request.files['the_file']
+    #save file to uploads folder
+    filePath = os.path.join(app.config['UPLOAD_FOLDER'], uploadedfile.filename)
+    app.logger.info(filePath)
+    uploadedfile.save(filePath)
+    app.logger.info(uploadedfile.filename)
+  #return the file name + path
+    return({"imagePath":filePath})
 
 app.run(debug=True)

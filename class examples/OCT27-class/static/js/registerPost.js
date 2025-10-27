@@ -20,6 +20,7 @@ window.onload = function () {
                 document.querySelector("#reg_thank").innerHTML =
                     `<h3> Thank you 
                 <span class = "highlight">${resJSON.f_name}</span> for registering !</h3>`;
+            
             } catch (err) {
                 console.log(err);
             }
