@@ -97,5 +97,16 @@ def deleteSession():
     session.pop('data_b', default=None)
     return redirect(url_for('modifySessionData'))
 
+# aroute == fetch
+@app.route('/getForm')
+def getFetchForm():
+    return render_template("form_fetch_get.html")
+
+# for the get
+@app.route('/getDataFromForm')
+def getDataFromForm():
+    app.logger.info(request.args)
+    return ({"data_received":"success","owner":request.args['o_name']})
+
 
 app.run(debug=True)
