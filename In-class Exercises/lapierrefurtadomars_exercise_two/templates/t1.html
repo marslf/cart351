@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>🍩 Welcome to the Donut & Ice Cream Page 🍨</h1>
+
+<img src="{{ url_for('static', filename='images/donut_sprinkles.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_c.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_f.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_a.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_pink.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_sprinkles.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_c.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_f.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_a.png') }}" alt="Donut Image" width="120">
+<img src="{{ url_for('static', filename='images/donut_pink.png') }}" alt="Donut Image" width="120">
+
+<p>We have so many <strong>{{ topic }}</strong>.</p>
+<p>There are <strong>{{ count }}</strong> donuts available today!</p>
+
+<h2>Donut Flavours</h2>
+<ul>
+    {% for flavour in donut_data.flavours %}
+    <li>{{ flavour }}</li>
+    {% endfor %}
+    <img src="{{ url_for('static', filename='images/donut_b.png') }}" alt="Donut Image" width="75">
+</ul>
+
+<h2>Available Toppings</h2>
+<ul>
+    {% for topping in donut_data.toppings %}
+    {% if "Chocolate" in topping %}
+    <li style="color: brown;">{{ topping }} (popular!)</li>
+    {% else %}
+    <li>{{ topping }}</li>
+    {% endif %}
+    {% endfor %}
+    <img src="{{ url_for('static', filename='images/donut_d.png') }}" alt="Donut Image" width="75">
+</ul>
+
+<h2>Ice Cream Flavours</h2>
+<p>Pairs perfectly with donuts:</p>
+<ul>
+    {% for ice in icecreams %}
+    <li>{{ ice }}</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
