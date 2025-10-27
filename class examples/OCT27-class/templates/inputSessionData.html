@@ -5,6 +5,7 @@
 <h3>LOAD SESSION VARS</h3>
 <p> Data A: {{session['data_a']}}</p>
 <p> Data B: {{session['data_b']}}</p>
+<a href="{{url_for('modifySessionData')}}">go to modify page</a>
 {% else %}
 <h3>SAVE SESSION VARS</h3>
 <div class="sessionVars">

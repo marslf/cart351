@@ -89,5 +89,13 @@ def modifySession():
     return redirect(url_for('modifySessionData'))
 #everytime you click submit = reloads the page = the data gets updated everywhere!
 
+#delete Session 
+@app.route('/deleteSession')
+def deleteSession():
+    # Clear the session data stored in the session object
+    session.pop('data_a', default=None)
+    session.pop('data_b', default=None)
+    return redirect(url_for('modifySessionData'))
+
 
 app.run(debug=True)
