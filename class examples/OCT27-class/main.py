@@ -3,6 +3,11 @@ from flask import Flask,render_template,request,redirect,url_for
 import os
 app = Flask(__name__)
 
+# Details on the Secret Key: https://flask.palletsprojects.com/en/2.3.x/config/#SECRET_KEY
+# NOTE: The secret key is used to cryptographically-sign the cookies used for storing
+#       the session data.
+app.secret_key = 'BAD_SECRET_KEY'
+
 @app.route("/")
 def index():
     return render_template("index.html",
@@ -52,5 +57,19 @@ def thank_you():
 def page_not_found(e):
     return render_template("404.html"),404
 
+#add session route
+@app.route('/inputSessionData')
+def inputSessionData():
+    return render_template("inputSessionData.html")
+
+@app.route('/saveSession')
+def saveSession():
+    app.logger.info(request.args['data_a'])
+    #reload  - use url_for() here :) - the function...
+    #but note that the data will be gone
+    # so add in a session variable
+    session['data_a'] = request.args['data_a']
+    session['data_b'] = request.args['data_b']
+    return redirect(url_for('inputSessionData'))
 
 app.run(debug=True)
