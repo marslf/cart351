@@ -22,6 +22,10 @@ window.onload = function () {
             document.querySelector("#results").innerHTML += //append the page to respond to the data 
                 `<p> THE NEW RESULT: <mark style = "background:orange">${resJSON.data_received}</mark></p>
                 <p> THANK YOU : <mark style = "background:orange">${resJSON.owner}</mark></p>`
+                //what appears on the page: 
+                // RESULTS
+                // THE NEW RESULT: success
+                // THANK YOU: Mars
 
         }
         catch (err) {

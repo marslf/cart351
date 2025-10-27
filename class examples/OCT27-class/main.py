@@ -108,5 +108,16 @@ def getDataFromForm():
     app.logger.info(request.args)
     return ({"data_received":"success","owner":request.args['o_name']})
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
+@app.route("/postRegFormFetch",methods = ['POST'])
+def postRegFormFetch():
+    app.logger.info(request.form)
+    return ({"data_received":"success","f_name":request.form["f_name"]})
+
+
 
 app.run(debug=True)
