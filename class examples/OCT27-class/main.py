@@ -1,5 +1,5 @@
 #library
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,session,redirect,url_for
 import os
 app = Flask(__name__)
 
@@ -71,5 +71,23 @@ def saveSession():
     session['data_a'] = request.args['data_a']
     session['data_b'] = request.args['data_b']
     return redirect(url_for('inputSessionData'))
+
+#modify session route
+@app.route('/modifySessionData')
+def modifySessionData():
+    return render_template("modifySessionData.html")
+
+@app.route('/modifySession')
+def modifySession():
+    app.logger.info(request.args['data_a'])
+ 
+    #reload  - use url_for here :) - the function...
+    #but note that the data will be gone
+    # so add in a session variable
+    session['data_a'] = request.args['data_a']
+    session['data_b'] = request.args['data_b']
+    return redirect(url_for('modifySessionData'))
+#everytime you click submit = reloads the page = the data gets updated everywhere!
+
 
 app.run(debug=True)
