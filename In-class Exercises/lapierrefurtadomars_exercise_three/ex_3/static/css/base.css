@@ -49,3 +49,32 @@ footer{
        color: rgb(255,255,255);
 
 }
+
+/* T2 page section */
+#t2-section {
+    background-color: rgb(10, 10, 30);
+    min-height: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+}
+
+/* Stars */
+.star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, white 0%, yellow 50%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Connect lines  */
+#line-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}

@@ -1,10 +1,72 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>** T2 Page **</h3>
-<section>
-    <p>Placeholder content for T2 page. This is where creative interactive elements will go.</p>
-    <p> <img src="{{ url_for('static', filename='images/donut_a.png') }}" alt="Chocolate donut with white sprinkles" style="width:200px;">
-    </p>
+<h3>** Constellation Builder **</h3>
+<p>Click anywhere to place stars. When you’re done, click “Finish” to connect the stars into a constellation.</p>
+
+<section id="t2-section">
+    <canvas id="line-canvas"></canvas>
+    <button id="finish-btn" style="margin-top:10px;">Finish</button>
 </section>
+
+<script>
+    const t2Section = document.getElementById('t2-section');
+    const canvas = document.getElementById('line-canvas');
+    const finishBtn = document.getElementById('finish-btn');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    // Make sure canvas fills the section
+    canvas.width = t2Section.clientWidth;
+    canvas.height = t2Section.clientHeight;
+
+    // === STEP 7: Add stars on click ===
+    t2Section.addEventListener('click', (e) => {
+        // Prevent clicking the button from adding a star
+        if (e.target === finishBtn) return;
+
+        const rect = t2Section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const starDiv = document.createElement('div');
+        starDiv.classList.add('star');
+        starDiv.style.left = (x - 5) + 'px';
+        starDiv.style.top = (y - 5) + 'px';
+        t2Section.appendChild(starDiv);
+
+        stars.push({ x, y });
+    });
+
+    // === STEP 8: Draw constellation lines on Finish ===
+    finishBtn.addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear old lines
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        ctx.lineWidth = 1;
+
+        // Draw lines between nearby stars
+        for (let i = 0; i < stars.length; i++) {
+            for (let j = i + 1; j < stars.length; j++) {
+                const dx = stars[i].x - stars[j].x;
+                const dy = stars[i].y - stars[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(stars[i].x, stars[i].y);
+                    ctx.lineTo(stars[j].x, stars[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        console.log("Constellation completed!");
+
+
+    });
+</script>
+
+
+
 {% endblock %}
