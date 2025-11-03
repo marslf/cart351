@@ -6,20 +6,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/base.css">
-    <title>CART 351 EX THREE</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/base.css')}}">
+    <title>Fetch API in Flask Application</title>
+    <!--new add a custom block for the script-->
+    {% block scriptblock %}
+    {% endblock %}
+
+    <title>CART 351 FLASK TEST WITH p5:)</title>
 
 </head>
 
 <body>
     <header>
-        <h2> CART 351 EX THREE </h2>
-        <nav>
-            <ul>
-                <li> <a href="{{url_for('index')}}">Home </a> </li>
-                <li><a href="{{ url_for('t2') }}">T2 Page</a></li>
-            </ul>
-        </nav>
+        <h2> CART 351 FLASK TEST WITH p5:) </h2>
+
     </header>
     <main>
         {% block content %}{% endblock %}

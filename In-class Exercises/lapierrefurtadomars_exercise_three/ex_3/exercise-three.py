@@ -12,15 +12,14 @@ def index():
 
 #*************************************************
 #Task: CAPTURE & POST & FETCH & SAVE
-# @app.route("/t2")
-# def t2():
-#     return render_template("t2.html")
+@app.route("/t2")
+def t2():
+    return render_template("t2.html")
 
-# app.route("/postDataFetch",methods = ['POST'])
-# def postDataFetch():
-#     app.logger.info(request.form)
-#     return ({"data_received":"yes"})
-
+@app.route("/postDataFetch", methods=['POST'])
+def postDataFetch():
+    app.logger.info(request.form)
+    return {"data_received":"yes"}
 #*************************************************
 #run
 app.run(debug=True)
