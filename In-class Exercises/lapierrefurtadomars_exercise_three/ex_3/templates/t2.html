@@ -13,31 +13,37 @@
 <script>
     // 1- get references to DOM elements
     const t2Section = document.getElementById('t2-section');//section container
-    const canvas = document.getElementById('line-canvas');
-    const finishBtn = document.getElementById('finish-btn');
-    const ctx = canvas.getContext('2d');
-    const messageBox = document.getElementById('message-box'); 
-    let stars = [];
+    const canvas = document.getElementById('line-canvas');//canvas for drawing lines
+    const finishBtn = document.getElementById('finish-btn');//finish button
+    const ctx = canvas.getContext('2d');//canvas drawing context
+    const messageBox = document.getElementById('message-box');//message display div
+    let stars = [];//array to store star coords
 
+    //2- set canvas size 
     canvas.width = t2Section.clientWidth;
     canvas.height = t2Section.clientHeight;
 
-    // add stars on click
+    //3- add stars on click
     t2Section.addEventListener('click', (e) => {
+        //ignore clicks on the finish button
         if (e.target === finishBtn) return;
 
+        //get click position relative to section
         const rect = t2Section.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
+        //create visual star element
         const starDiv = document.createElement('div');
         starDiv.classList.add('star');
         starDiv.style.left = (x - 5) + 'px';
         starDiv.style.top = (y - 5) + 'px';
         t2Section.appendChild(starDiv);
 
+        //save star coords
         stars.push({ x, y });
 
+        //4- send stars to server via fetch
         fetch("/postDataFetch", {
             method: "POST",
             headers: {
@@ -47,10 +53,8 @@
         })
             .then(response => response.json())
             .then(data => {
-                console.log("Server response:", data);
-
-                messageBox.textContent = data.message;
-
+                console.log("Server response:", data); //log server message
+                messageBox.textContent = data.message;// display message
                 // Clear message after 3 sec
                 setTimeout(() => {
                     messageBox.textContent = "";
@@ -59,10 +63,11 @@
 
     });
 
+    //5- finish button: draw constellation lines
     finishBtn.addEventListener('click', () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear old lines
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.6)'; //line style
         ctx.lineWidth = 1;
 
         // Draw lines between nearby stars
@@ -71,7 +76,8 @@
                 const dx = stars[i].x - stars[j].x;
                 const dy = stars[i].y - stars[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-
+ 
+                //only connect if stars are close enough
                 if (distance < 150) {
                     ctx.beginPath();
                     ctx.moveTo(stars[i].x, stars[i].y);
@@ -81,7 +87,7 @@
             }
         }
 
-        console.log("Constellation completed!");
+        console.log("Constellation completed!");//debug log
 
 
     });
