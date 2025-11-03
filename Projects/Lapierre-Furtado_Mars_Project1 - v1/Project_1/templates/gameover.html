@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Game Over</title>
+    <style>
+        body {
+            background-color: #9ea7b5;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        h1 {
+            color: #fc0303;
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.5em;
+        }
+
+        .summary {
+            margin-top: 30px;
+            background-color: #ffffff33;
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #00000033;
+        }
+
+        .mood {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            margin: 15px;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #005f87;
+        }
+    </style>
+</head>
+
+<body style="background-color: 
+    {% if accuracy >= 60 %}#b5d1ff
+    {% elif accuracy >= 30 %}#b8c7de
+    {% else %}#afbac9{% endif %};
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 80px;">
+    <h1>🌪️ Game Over! ☠️</h1>
+
+    <!-- Summary Box -->
+    <div class="summary">
+        <div class="mood">{{ mood_icon }}</div> <!-- icon based on performance -->
+        <p>Your final score: {{ points }}</p>
+        <p>Accuracy: {{ accuracy }}%</p>
+        <p>{% if accuracy >= 60 %}Great job! The skies are clear! {% elif accuracy >= 30 %}Not bad — a bit mucky!
+            {%
+            else %}Quite a bit of smog here... try again! {% endif %}</p>
+    </div>
+
+    <form action="{{ url_for('index') }}">
+        <button class="btn">Play Again</button>
+    </form>
+</body>
+
+</html>
