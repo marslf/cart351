@@ -1,3 +1,6 @@
+import json
+
+
 # OPEN FILE FOR READING
 #rainbowFile = open("files/rainbow.txt", "r")
 
@@ -50,11 +53,32 @@
 
 
 #APPENDING = still using write but what matters is how you open and use the file
-sampleFile_a = open("files/sample_text.txt", "a")
-nameList = []
-for i in range(3):
-    name = input("type name : ")
-    nameList.append(name+'\n')
+# sampleFile_a = open("files/sample_text.txt", "a")
+# nameList = []
+# for i in range(3):
+#     name = input("type name : ")
+#     nameList.append(name+'\n')
     
-sampleFile_a.writelines()
-sampleFile_a.close
+# sampleFile_a.writelines(nameList)
+# sampleFile_a.close
+
+
+#READING JSON
+
+# Read from file and parse JSON
+# jsonFile = open("files/test.json", "r")
+# data = json.load(jsonFile)
+# print(data)
+# print(type(data)) # a list
+
+#alternative option
+# json_str = '{"name":"Sabs", "fav_col":"red", "fav_city":"montreal"}'
+# data_2 = json.loads(json_str) 
+# print(data_2)
+# print(type(data_2))#converts to a dict
+
+data_toSave = {"name":"mandy", "fav_col":"blue", "fav_city":"winnipeg"}
+data_s = json.dumps(data_toSave, indent=4)
+fileToOpen = open("files/new_sample.json", "w")
+fileToOpen.write(data_s)
+
