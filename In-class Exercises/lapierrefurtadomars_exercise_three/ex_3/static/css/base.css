@@ -78,3 +78,17 @@ footer{
     left: 0;
     pointer-events: none;
 }
+
+#message-box {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 200px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: lightgreen;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    pointer-events: none;
+}

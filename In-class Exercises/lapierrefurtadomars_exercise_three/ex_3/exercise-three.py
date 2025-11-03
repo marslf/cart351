@@ -1,5 +1,6 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request, json, jsonify
 import os
+
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads' # Or os.path.join(app.instance_path, 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -18,8 +19,22 @@ def t2():
 
 @app.route("/postDataFetch", methods=['POST'])
 def postDataFetch():
-    app.logger.info(request.form)
-    return {"data_received":"yes"}
+    data = request.get_json()
+    stars = data.get("stars", [])
+
+    filepath = os.path.join("files", "data.txt")
+
+    data_to_save = {"stars": stars}
+    data_s = json.dumps(data_to_save, indent=4)
+
+    # Open file in append mode
+    with open(filepath, "a") as f:
+        f.write(data_s + "\n")  # Add newline between constellations
+
+    print("Saved stars:", stars)
+
+    # Send JSON response to client
+    return jsonify({"message": f"✨ Saved {len(stars)} stars as a constellation!"})
 #*************************************************
 #run
 app.run(debug=True)

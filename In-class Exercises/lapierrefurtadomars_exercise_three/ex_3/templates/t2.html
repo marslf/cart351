@@ -7,22 +7,23 @@
 <section id="t2-section">
     <canvas id="line-canvas"></canvas>
     <button id="finish-btn" style="margin-top:10px;">Finish</button>
+    <div id="message-box"></div>
 </section>
 
 <script>
-    const t2Section = document.getElementById('t2-section');
+    // 1- get references to DOM elements
+    const t2Section = document.getElementById('t2-section');//section container
     const canvas = document.getElementById('line-canvas');
     const finishBtn = document.getElementById('finish-btn');
     const ctx = canvas.getContext('2d');
+    const messageBox = document.getElementById('message-box'); 
     let stars = [];
 
-    // Make sure canvas fills the section
     canvas.width = t2Section.clientWidth;
     canvas.height = t2Section.clientHeight;
 
-    // === STEP 7: Add stars on click ===
+    // add stars on click
     t2Section.addEventListener('click', (e) => {
-        // Prevent clicking the button from adding a star
         if (e.target === finishBtn) return;
 
         const rect = t2Section.getBoundingClientRect();
@@ -36,6 +37,26 @@
         t2Section.appendChild(starDiv);
 
         stars.push({ x, y });
+
+        fetch("/postDataFetch", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ stars: stars })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server response:", data);
+
+                messageBox.textContent = data.message;
+
+                // Clear message after 3 sec
+                setTimeout(() => {
+                    messageBox.textContent = "";
+                }, 3000);
+            });
+
     });
 
     finishBtn.addEventListener('click', () => {
