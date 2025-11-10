@@ -134,4 +134,49 @@ def viewResults():
     print(result)
     return render_template("viewResults.html",result=result)
 
+@app.route('/updateOne')
+def updateOne():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.find_one_and_update(
+            {'plant_name' :'Agapanthus'},
+            {'$set':{'descript':'a more precise description'}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+
+@app.route('/updatePoints')
+def updatePoints():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.find_one_and_update(
+            {'user' :'maria'},
+            {'$inc':{'points':2}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+
+@app.route('/updateOneRepeat')
+def updateOneRepeat():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.find_one_and_update(
+            {'owner_name' :'Sarah'},
+            {'$set':{'descript':'a more precise description for all sarahs','title':'test123'}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+ 
+        print(e)
+
+@app.route('/updateMany')
+def updateMany():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.update_many(
+            {'owner_name' :'Sarah'},
+            {'$set':{'descript':'a more precise description for all sarahs','title':'testALL'}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+
 app.run(debug = True)
