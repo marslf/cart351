@@ -12,6 +12,9 @@ db_name = os.getenv('DATABASE_NAME')
 
 app = Flask(__name__)
 app.secret_key = 'BAD_SECRET_KEY'
+UPLOAD_FOLDER = 'static/uploads' 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB limit
 # set a config var
 #uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.kljrtj4.mongodb.net/?appName=Cluster0"
 uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.kljrtj4.mongodb.net/{db_name}?retryWrites=true&w=majority"
@@ -194,5 +197,39 @@ def updateMany():
         return redirect(url_for("insertTest"))
      except Exception as e:
         print(e)
+
+@app.route("/insertPlant")
+def insertPlant():
+    return render_template('insertPlantMongo.html')
+
+@app.route("/postPlantFormFetch",methods = ['POST'])
+def postPlantFormFetch():
+     #key is the same as in the form :)
+    uploadedfile = request.files['the_file']
+    #save file to uploads folder
+    filePath = os.path.join(app.config['UPLOAD_FOLDER'], uploadedfile.filename)
+    app.logger.info(filePath)
+    uploadedfile.save(filePath)
+    app.logger.info(uploadedfile.filename)
+    
+    dataToMongo = {
+'owner_name': request.form['o_name'],
+'plant_name' : request.form['a_name'],
+'birthDate': datetime.strptime(request.form['a_date'], format_string),
+'geoLoc': request.form['a_geo_loc'],
+'descript': request.form['a_descript'],
+'imagePath': f"uploads/{uploadedfile.filename}"
+}
+
+    try:
+        res = mongo.db.plantRepo.insert_one(dataToMongo)
+          #return the file name
+        return({"imagePath":filePath})
+    except Exception as e:
+ 
+        print(e)
+
+  #return the file name
+    return({"imagePath":filePath})
 
 app.run(debug = True)
