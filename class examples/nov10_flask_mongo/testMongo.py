@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask,render_template,request, redirect, url_for,session
+#import datetime
+from datetime import datetime
 # use flask_pymongo instead of  normal pymongo (simplifies integration)
 from flask_pymongo import PyMongo
 import os
@@ -15,6 +17,7 @@ app.secret_key = 'BAD_SECRET_KEY'
 uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.kljrtj4.mongodb.net/{db_name}?retryWrites=true&w=majority"
 app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
+format_string = "%Y-%m-%d"
 # try:
 #     #get details of the client
 #     print (mongo.cx)
@@ -48,9 +51,9 @@ def insertTest():
 # a route
 @app.route('/insertMany')
 def insertMany():
-    data = [{'owner_name': 'Sarah',
+     data = [{'owner_name': 'Sarah',
 'plant_name' : 'Snake Plant',
-'birthDate':'2002-06-12',
+'birthDate':datetime.strptime("2002-06-12", format_string),
 'geoLoc': 'Montreal',
 'descript': 'Description for the plant',
 'imagePath': 'images/one.png'
@@ -58,7 +61,7 @@ def insertMany():
 {
 'owner_name': 'Sarah',
 'plant_name' :'Cactus',
-'birthDate' :'2005-06-13',
+'birthDate' :datetime.strptime("2005-06-13", format_string),
 'geoLoc':'Toronto',
 'descript':'Description for the plant',
 'imagePath': 'images/seven.png'
@@ -67,7 +70,7 @@ def insertMany():
  {
 'owner_name': 'Sarah',
 'plant_name' : 'Agapanthus',
-'birthDate': '2003-03-19',
+'birthDate': datetime.strptime("2003-03-19", format_string),
 'geoLoc': 'Halifax',
 'descript': 'Description for the plant',
 'imagePath': 'images/seventeen.png'
@@ -75,7 +78,7 @@ def insertMany():
  {
 'owner_name': 'Stephen',
 'plant_name' : 'Baby Rubber Plant',
-'birthDate ': '1999-07-18',
+'birthDate ': datetime.strptime("1997-07-18", format_string),
 'geoLoc': 'Edinborough',
 'descript':'Description for the plant',
 'imagePath': 'images/ten.png'
@@ -84,7 +87,7 @@ def insertMany():
 {
 'owner_name': 'Stephen',
 'plant_name' : 'Dahlia',
-'birthDate' :'2000-05-06',
+'birthDate' :datetime.strptime("2000-05-06", format_string),
 'geoLoc':'London',
 'descript':'Description for the plant',
 'imagePath': 'images/thirteen.png'
@@ -93,7 +96,7 @@ def insertMany():
 {
 'owner_name' : 'Harold',
 'plant_name' : 'Daphne',
-'birthDate': '2012-10-21',
+'birthDate': datetime.strptime("2012-10-21", format_string),
 'geoLoc':'New York',
 'descript':'Description for the plant',
 'imagePath': 'images/three.png'
@@ -101,17 +104,17 @@ def insertMany():
 {
 'owner_name' : 'Martha',
 'plant_name' : 'Daylily',
-'birthDate' :'2017-08-21',
+'birthDate' :datetime.strptime("2017-08-21", format_string),
 'geoLoc':'Paris',
 'descript':'Description for the plant',
 'imagePath': 'images/nine.png'
 }]
-    try:
+     try:
         # insert many works :)
         result = mongo.db.plantRepo.insert_many(data)
         session['ids'] = result.inserted_ids
         return redirect(url_for('testIds'))
-    except Exception as e:
+     except Exception as e:
         print(e)
 
 @app.route('/testIds')
@@ -128,9 +131,22 @@ def testIds():
 #     return render_template("viewResults.html",result=result)
 
 # retrive all results
+# @app.route('/viewResults')
+# def viewResults():
+#     result = mongo.db.plantRepo.find()
+#     print(result)
+#     return render_template("viewResults.html",result=result)
+
+# @app.route('/viewResults')
+# def viewResults():
+#     result = mongo.db.plantRepo.find({'points':{'$gt':5}}) #selecting particular rows
+#     print(result)
+#     return render_template("viewResults.html",result=result)
+
 @app.route('/viewResults')
 def viewResults():
-    result = mongo.db.plantRepo.find()
+    startTime = datetime.strptime("2003-01-12", format_string) #retrieving with dates
+    result= mongo.db.plantRepo.find({'birthDate':{'$gt':startTime}})
     print(result)
     return render_template("viewResults.html",result=result)
 
