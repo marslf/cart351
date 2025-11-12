@@ -24,7 +24,10 @@ function placeCreature(creature, index) {
         frog: 'frog.png',
         tadpole: 'tadpole.png',
         fish: Math.random() < 0.5 ? 'fish1.png' : 'fish2.png',
-        bug: 'dragonfly.png'
+        bug: (() => {
+            const options = ['bee.png', 'butterfly.png', 'moth.png', 'dragonfly.png'];
+            return options[Math.floor(Math.random() * options.length)];
+        })()
     };
 
     const filename = imageMap[creature.type] || 'frog.png';
@@ -34,6 +37,12 @@ function placeCreature(creature, index) {
     img.style.display = 'block';
     img.style.position = 'relative';
     img.style.zIndex = '1';
+
+    // Create info bubble
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    bubble.innerHTML = `<strong>${creature.name}</strong><br>${creature.message || ''}`;
+    el.appendChild(bubble);
 
     // COLOR FILTER LAYER
     if (creature.color) {

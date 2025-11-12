@@ -1,17 +1,26 @@
 [
-  {
-    "type": "frog",
-    "name": "anonymous",
-    "color": "#66cc66"
-  },
-  {
-    "type": "frog",
-    "name": "Ribbit",
-    "color": "#66cc66"
-  },
-  {
-    "type": "tadpole",
-    "name": "marcus",
-    "color": "#6163b3"
-  }
+    {
+        "type": "bug",
+        "name": "1",
+        "color": "#00ff00",
+        "message": "111"
+    },
+    {
+        "type": "bug",
+        "name": "2",
+        "color": "#ff00ea",
+        "message": "222"
+    },
+    {
+        "type": "bug",
+        "name": "3",
+        "color": "#00ff7b",
+        "message": "333"
+    },
+    {
+        "type": "bug",
+        "name": "4",
+        "color": "#ff0000",
+        "message": "444"
+    }
 ]

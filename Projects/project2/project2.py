@@ -44,10 +44,11 @@ def pond_page():
 @app.route("/postCreature", methods=["POST"])
 def post_creature():
     data = request.get_json() or {}
-    # expected fields: type, name, color
+    # fields: type, name, color, message
     ctype = data.get("type", "frog")
     name = data.get("name", "anon")
     color = data.get("color", None)
+    message = data.get("message", "")
 
     # make a simple creature record with a random-ish position 
     # store timestamp-ish id or allow client to send x,y
@@ -55,6 +56,7 @@ def post_creature():
         "type": ctype,
         "name": name,
         "color": color,
+        "message": message
     }
 
     creatures = load_creatures()

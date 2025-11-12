@@ -1,8 +1,8 @@
-// static/js/create.js
 // Get DOM elements
 const typeEl = document.getElementById('ctype');
 const nameEl = document.getElementById('cname');
 const colorEl = document.getElementById('ccolor');
+const messageEl = document.getElementById('cmsg');
 const saveBtn = document.getElementById('saveBtn');
 const msgEl = document.getElementById('create-msg');
 
@@ -11,7 +11,8 @@ saveBtn.addEventListener('click', () => {
     const creature = {
         type: typeEl.value,
         name: nameEl.value.trim() || 'anonymous',
-        color: colorEl.value || null
+        color: colorEl.value || null,
+        message: messageEl.value.trim().substring(0, 25) || ''
     };
 
     // POST via fetch
@@ -22,10 +23,9 @@ saveBtn.addEventListener('click', () => {
     })
         .then(res => res.json())
         .then(data => {
-            // Show simple confirmation and clear name
             msgEl.textContent = data.message + ` (Total creatures: ${data.count})`;
             nameEl.value = '';
-            //small auto-clear
+            messageEl.value = ''; // 
             setTimeout(() => msgEl.textContent = '', 3000);
         })
         .catch(err => {
@@ -33,3 +33,4 @@ saveBtn.addEventListener('click', () => {
             console.error(err);
         });
 });
+
