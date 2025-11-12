@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h2>Community Pond</h2>
+    <p>All creatures submitted by visitors:</p>
+    <div id="pond" class="pond"></div>
+
+    <div id="pond-msg" class="message"></div>
+</section>
+
+<script src="{{ url_for('static', filename='js/pond.js') }}"></script>
+{% endblock %}

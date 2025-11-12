@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h2>Create a Creature</h2>
+
+    <!-- Simple form (we will POST via JS fetch) -->
+    <label>Type:
+        <select id="ctype">
+            <option value="frog">Frog</option>
+            <option value="tadpole">Tadpole</option>
+            <option value="fish">Fish</option>
+            <option value="bug">Bug</option>
+        </select>
+    </label>
+
+    <label>Name:
+        <input type="text" id="cname" placeholder="give it a name">
+    </label>
+
+    <label>Color:
+        <input type="color" id="ccolor" value="#66cc66">
+    </label>
+
+    <button id="saveBtn">Save Creature</button>
+
+    <div id="create-msg" class="message"></div>
+</section>
+
+<!-- script for create page -->
+<script src="{{ url_for('static', filename='js/create.js') }}"></script>
+{% endblock %}
