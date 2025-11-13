@@ -85,6 +85,60 @@ function placeCreature(creature) {
     else if (creature.type === 'bug') flutter(el, img);
 }
 
+// drag and drop creatures
+pondEl.addEventListener('mousedown', (e) => {
+    const target = e.target.closest('.creature');
+    if (!target) return;
+
+    e.preventDefault();
+
+    // Store starting position of mouse and element
+    const startX = e.clientX;
+    const startY = e.clientY;
+    let origLeft = parseFloat(target.style.left);
+    let origTop = parseFloat(target.style.top);
+
+    // Get movement type
+    const type = Array.from(target.classList).find(c => ['frog', 'tadpole', 'fish', 'bug'].includes(c));
+
+    // Update internal movement variables if necessary
+    let circleData = target._circleData || {};
+    let zigzagData = target._zigzagData || {};
+    let flutterData = target._flutterData || {};
+
+    function onMouseMove(moveEvent) {
+        const dx = moveEvent.clientX - startX;
+        const dy = moveEvent.clientY - startY;
+        target.style.left = origLeft + dx + 'px';
+        target.style.top = origTop + dy + 'px';
+
+        // Update internal movement coordinates
+        if (type === 'tadpole') {
+            circleData.centerX = origLeft + dx;
+            circleData.centerY = origTop + dy;
+            target._circleData = circleData;
+        } else if (type === 'fish') {
+            zigzagData.x = origLeft + dx;
+            zigzagData.y = origTop + dy;
+            target._zigzagData = zigzagData;
+        } else if (type === 'bug') {
+            flutterData.x = origLeft + dx;
+            flutterData.y = origTop + dy;
+            target._flutterData = flutterData;
+        }
+    }
+
+    function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        origLeft = parseFloat(target.style.left);
+        origTop = parseFloat(target.style.top);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+});
+
 // Frog hops randomly
 function hopAround(el, img) {
     setInterval(() => {
@@ -104,11 +158,15 @@ function hopAround(el, img) {
 function swimCircle(el, img) {
     let angle = Math.random() * Math.PI * 2;
     const radius = 40 + Math.random() * 40;
-    const centerX = parseFloat(el.style.left);
-    const centerY = parseFloat(el.style.top);
+    let centerX = parseFloat(el.style.left);
+    let centerY = parseFloat(el.style.top);
+
+    el._circleData = { centerX, centerY };
 
     setInterval(() => {
         angle += 0.05;
+        centerX = el._circleData.centerX;
+        centerY = el._circleData.centerY;
         const newX = centerX + Math.cos(angle) * radius;
         const newY = centerY + Math.sin(angle) * radius;
         el.style.left = newX + 'px';
@@ -125,9 +183,16 @@ function swimZigzag(el, img) {
     let x = parseFloat(el.style.left);
     let y = parseFloat(el.style.top);
 
+    el._zigzagData = { x, y, dir };
+
     setInterval(() => {
+        x = el._zigzagData.x;
+        y = el._zigzagData.y;
+        dir = el._zigzagData.dir;
+
         x += dir * (3 + Math.random() * 2);
         y += Math.sin(x / 20) * 2;
+
         el.style.left = x + 'px';
         el.style.top = y + 'px';
 
@@ -135,23 +200,56 @@ function swimZigzag(el, img) {
         else img.style.transform = 'scaleX(1)';
 
         if (x < 0 || x > pondEl.clientWidth - 60) dir *= -1;
+
+        el._zigzagData.x = x;
+        el._zigzagData.y = y;
+        el._zigzagData.dir = dir;
     }, 40);
 }
 
 // Bug flutter 
 function flutter(el, img) {
-    let angle = Math.random() * Math.PI * 2;
-    const radius = 40 + Math.random() * 40;
-    const centerX = parseFloat(el.style.left);
-    const centerY = parseFloat(el.style.top);
+    el._flutterData = {
+        x: parseFloat(el.style.left),
+        y: parseFloat(el.style.top)
+    };
+    el._isDragging = false;
 
-    function move() {
-        angle += 0.02; 
-        const newX = centerX + Math.cos(angle) * radius;
-        const newY = centerY + Math.sin(angle) * radius;
-        el.style.left = newX + 'px';
-        el.style.top = newY + 'px';
-        requestAnimationFrame(move);
+    function moveToNext() {
+        // don't start a new move while dragging
+        if (el._isDragging) {
+            setTimeout(moveToNext, 50); // check again shortly
+            return;
+        }
+
+        let x = el._flutterData.x;
+        let y = el._flutterData.y;
+
+        const targetX = x + (Math.random() - 0.5) * 80;
+        const targetY = y + (Math.random() - 0.5) * 80;
+        const duration = 1000 + Math.random() * 500;
+
+        const start = performance.now();
+        function animate(now) {
+            // if drag starts mid-animation, stop this cycle
+            if (el._isDragging) return;
+
+            const t = Math.min((now - start) / duration, 1);
+            el.style.left = x + (targetX - x) * t + 'px';
+            el.style.top = y + (targetY - y) * t + 'px';
+
+            el._flutterData.x = parseFloat(el.style.left);
+            el._flutterData.y = parseFloat(el.style.top);
+
+            if (t < 1) requestAnimationFrame(animate);
+            else moveToNext();
+        }
+        requestAnimationFrame(animate);
     }
-    move();
+
+    moveToNext();
+
+    // Handle drag state
+    el.addEventListener('mousedown', () => el._isDragging = true);
+    document.addEventListener('mouseup', () => el._isDragging = false);
 }

@@ -22,5 +22,17 @@
         "name": "4",
         "color": "#ff0000",
         "message": "444"
+    },
+    {
+        "type": "fish",
+        "name": "3",
+        "color": "#00ff7b",
+        "message": "333"
+    },
+    {
+        "type": "bug",
+        "name": "4",
+        "color": "#ff0000",
+        "message": "444"
     }
 ]
