@@ -2,7 +2,7 @@
 const typeEl = document.getElementById('ctype');
 const nameEl = document.getElementById('cname');
 const colorEl = document.getElementById('ccolor');
-const messageEl = document.getElementById('cmsg');
+const messageEl = document.getElementById('cmessage');
 const saveBtn = document.getElementById('saveBtn');
 const msgEl = document.getElementById('create-msg');
 const goPondBtn = document.getElementById('goPondBtn');
@@ -24,13 +24,13 @@ saveBtn.addEventListener('click', () => {
     })
         .then(res => res.json())
         .then(data => {
-            msgEl.textContent = data.message + ` (Total creatures: ${data.count})`;
+            msgEl.textContent = data.message + ` (Total critters: ${data.count})`;
             nameEl.value = '';
             messageEl.value = ''; // 
             setTimeout(() => msgEl.textContent = '', 3000);
         })
         .catch(err => {
-            msgEl.textContent = 'Error saving creature';
+            msgEl.textContent = 'Error saving critter';
             console.error(err);
         });
 });

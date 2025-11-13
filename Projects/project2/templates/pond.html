@@ -2,10 +2,24 @@
 {% block content %}
 <section class="panel">
     <h2>Community Pond</h2>
-    <p>All creatures submitted by visitors:</p>
-    <div id="pond" class="pond"></div>
+    <p>Here are all critters submitted by visitors</p>
+    <p>Drag and drop them to place them where you want in the pond</p>
 
-    <div id="pond-msg" class="message"></div>
+    <div class="pond-container">
+        <div class="pond"></div>
+        <div id="pond-msg" class="message"></div>
+        <div id="stats-panel">
+            <h3>Pond Stats</h3>
+            <ul id="stats-list">
+                <li>Total creatures: 0</li>
+                <li>Frogs: 0</li>
+                <li>Tadpoles: 0</li>
+                <li>Fish: 0</li>
+                <li>Bugs: 0</li>
+                <li>With messages: 0</li>
+            </ul>
+        </div>
+    </div>
 
 </section>
 

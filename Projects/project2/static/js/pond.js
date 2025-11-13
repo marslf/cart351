@@ -9,10 +9,34 @@ fetch('/getCreatures')
         const creatures = data.creatures || [];
         console.log('Loaded creatures:', creatures);
         creatures.forEach(placeCreature);
+
+        // Update stats panel
+        updateStats(creatures);
     })
     .catch(err => console.error('Error fetching creatures:', err));
 
-// 3 - Function: place one creature in the pond
+//2- calculate stats and update list
+function updateStats(creatures) {
+    const statsList = document.getElementById('stats-list');
+
+    const total = creatures.length;
+    const frogs = creatures.filter(c => c.type === 'frog').length;
+    const tadpoles = creatures.filter(c => c.type === 'tadpole').length;
+    const fish = creatures.filter(c => c.type === 'fish').length;
+    const bugs = creatures.filter(c => c.type === 'bug').length;
+    const withMessages = creatures.filter(c => c.message && c.message.trim() !== '').length;
+
+    statsList.innerHTML = `
+        <li>Total critters: ${total}</li>
+        <li>Frogs: ${frogs}</li>
+        <li>Tadpoles: ${tadpoles}</li>
+        <li>Fish: ${fish}</li>
+        <li>Bugs: ${bugs}</li>
+        <li>With messages: ${withMessages}</li>
+    `;
+}
+
+// 3 - place  creature in the pond
 function placeCreature(creature) {
     const el = document.createElement('div');
     el.classList.add('creature', creature.type);
