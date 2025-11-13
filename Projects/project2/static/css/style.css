@@ -73,22 +73,16 @@ button {
     transition: transform 0.2s ease;
 }
 
-/* On hover, make it "jump" a little */
 .creature:hover {
-    transform: scale(1.1);
+    transform: scale(var(--flip-scale, 1)) translateY(-6px);
+    transition: transform 160ms;
+    cursor: pointer;
 }
 
 /* name label style inside creature */
 .creature .name {
     font-size: 11px;
     padding: 0 4px;
-}
-
-/* small hover effect */
-.creature:hover {
-    transform: translateY(-6px);
-    transition: transform 160ms;
-    cursor: pointer;
 }
 
 /* responsive adjustments */
@@ -119,4 +113,20 @@ button {
 /* Show bubble on hover */
 .creature:hover .bubble {
     opacity: 1;
+}
+
+.input-block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-block label {
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.buttons-block {
+    flex-direction: row;
+    gap: 10px;
 }

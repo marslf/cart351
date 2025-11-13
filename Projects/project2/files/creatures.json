@@ -1,18 +1,18 @@
 [
     {
-        "type": "bug",
+        "type": "frog",
         "name": "1",
         "color": "#00ff00",
         "message": "111"
     },
     {
-        "type": "bug",
+        "type": "tadpole",
         "name": "2",
         "color": "#ff00ea",
         "message": "222"
     },
     {
-        "type": "bug",
+        "type": "fish",
         "name": "3",
         "color": "#00ff7b",
         "message": "333"

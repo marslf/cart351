@@ -5,6 +5,7 @@ const colorEl = document.getElementById('ccolor');
 const messageEl = document.getElementById('cmsg');
 const saveBtn = document.getElementById('saveBtn');
 const msgEl = document.getElementById('create-msg');
+const goPondBtn = document.getElementById('goPondBtn');
 
 //Click handler: send creature to server
 saveBtn.addEventListener('click', () => {
@@ -34,3 +35,7 @@ saveBtn.addEventListener('click', () => {
         });
 });
 
+goPondBtn.addEventListener('click', () => {
+    // go to the pond page
+    window.location.href = '/pond';
+});

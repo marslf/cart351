@@ -3,28 +3,35 @@
 <section class="panel">
     <h2>Create a Creature</h2>
 
-    <!-- Simple form (we will POST via JS fetch) -->
-    <label>Type:
+    <div class="input-block">
+        <label for="ctype">Creature Type:</label>
         <select id="ctype">
             <option value="frog">Frog</option>
             <option value="tadpole">Tadpole</option>
             <option value="fish">Fish</option>
-            <option value="Bug">Bug</option>
+            <option value="bug">Bug</option>
         </select>
-    </label>
+    </div>
 
-    <label>Name:
-        <input type="text" id="cname" placeholder="give it a name">
-    </label>
+    <div class="input-block">
+        <label for="cname">Creature Name:</label>
+        <input type="text" id="cname" placeholder="Enter name" />
+    </div>
 
-    <label>Color:
-        <input type="color" id="ccolor" value="#66cc66">
-    </label>
+    <div class="input-block">
+        <label for="ccolor">Creature Color:</label>
+        <input type="color" id="ccolor" />
+    </div>
 
-    <label for="cmsg">Message (max 25 chars):</label>
-    <input type="text" id="cmsg" maxlength="25" placeholder="Enter a message...">
+    <div class="input-block">
+        <label for="cmessage">Message (max 25 chars):</label>
+        <input type="text" id="cmessage" maxlength="25" placeholder="Enter message" />
+    </div>
 
-    <button id="saveBtn">Save Creature</button>
+    <div class="input-block buttons-block">
+        <button id="saveBtn">Save Creature</button>
+        <button id="goPondBtn">Go to Pond</button>
+    </div>
 
     <div id="create-msg" class="message"></div>
 </section>
