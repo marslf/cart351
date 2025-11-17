@@ -4,35 +4,5 @@
         "name": "Frogsters",
         "color": "#00800f",
         "message": "Ribbit! Ribbit!"
-    },
-    {
-        "type": "tadpole",
-        "name": "George",
-        "color": "#1100ff",
-        "message": ""
-    },
-    {
-        "type": "fish",
-        "name": "Coral",
-        "color": "#ff00bb",
-        "message": "Have a nice day!!"
-    },
-    {
-        "type": "fish",
-        "name": "Fishy",
-        "color": "#9900ff",
-        "message": ""
-    },
-    {
-        "type": "bug",
-        "name": "Flappy",
-        "color": "#ffa200",
-        "message": "It's so cold outside"
-    },
-    {
-        "type": "bug",
-        "name": "Wilson",
-        "color": "#e100ff",
-        "message": "Don't forget to hydrate"
     }
 ]

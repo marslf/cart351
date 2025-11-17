@@ -1,0 +1,14 @@
+<!-- will be a child of base-->
+{% extends "base.html" %}
+<!-- js for this page-->
+{% block scriptblock %}
+<script src="{{url_for('static',filename='js/client.js')}}"></script>
+{% endblock %}
+{% block content %}
+<section class="username-container">
+    <p>
+        <input type="text" id="uName" placeholder="enter your name" />
+        <input type="button" id="uButton" value="submit" />
+    </p>
+</section>
+{% endblock %}
