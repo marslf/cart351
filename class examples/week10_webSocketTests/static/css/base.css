@@ -118,3 +118,11 @@ footer {
 .uMessage {
     color: #f2f4ed;
 }
+
+/******/
+#p5Test {
+    width: 800px;
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+}
