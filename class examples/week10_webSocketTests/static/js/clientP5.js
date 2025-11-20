@@ -24,6 +24,21 @@ window.onload = function () {
         //for p5
         state = "active";
     });
+
+    // place this here so that it is active and so that we can see other's flowers 
+    // each client has their own flower array and when it recieves 
+    // flowers from other clients it will just add them to their own array
+    clientSocket.on("flowerFromServer", function (flowerData) {
+        let tempFlower = new Flower(
+            flowerData.x,
+            flowerData.y,
+            flowerData.o_color.levels,
+            flowerData.i_color.levels,
+            flowerData.scalar
+        )
+        flowers.push(tempFlower);
+    })
+
 };
 /*************************p5*********************************** */
 
@@ -58,5 +73,6 @@ function mousePressed() {
             clientScopeFlowerCol.scalar
         )
         flowers.push(tempFlower);
+        clientSocket.emit("newFlower", tempFlower); // Notify server of new flower
     }
 }

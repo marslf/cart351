@@ -33,6 +33,12 @@ def handle_text(data):
      dataToSend["data"] = data["data"]
      emit("dataFromServer",dataToSend,broadcast =True,skip_sid=request.sid)
 
+@socketio.on('newFlower')
+def handle_flower(flower):
+    app.logger.info(request.sid)
+    app.logger.info(flower)
+    emit("flowerFromServer",flower,broadcast =True,skip_sid=request.sid)
+
 @app.route('/')
 def index():
      #return render_template('socketTest.html')

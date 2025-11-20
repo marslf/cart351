@@ -1,8 +1,32 @@
 [
-    {
-        "type": "frog",
-        "name": "Frogsters",
-        "color": "#00800f",
-        "message": "Ribbit! Ribbit!"
-    }
+  {
+    "type": "frog",
+    "name": "Frogsters",
+    "color": "#00800f",
+    "message": "Ribbit! Ribbit!"
+  },
+  {
+    "type": "tadpole",
+    "name": "Pesto",
+    "color": "#00ff00",
+    "message": "E"
+  },
+  {
+    "type": "bug",
+    "name": "Omegatron",
+    "color": "#a51818",
+    "message": "0"
+  },
+  {
+    "type": "fish",
+    "name": "Fuckfart",
+    "color": "#9900ff",
+    "message": "die whore"
+  },
+  {
+    "type": "bug",
+    "name": "michael",
+    "color": "#5900ff",
+    "message": ""
+  }
 ]
