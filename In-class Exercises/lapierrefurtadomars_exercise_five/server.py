@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request, jsonify
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
@@ -28,7 +28,7 @@ db_name = os.getenv('DATABASE_NAME')
 
 app = Flask(__name__)
 
-uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.n0do9xq.mongodb.net/{db_name}?retryWrites=true&w=majority"
+uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.kljrtj4.mongodb.net/{db_name}?retryWrites=true&w=majority"
  # Replace with your MongoDB Atlas connection string
 app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
@@ -117,31 +117,47 @@ def two():
 
     return({"results":results,"events":event_names})
 
-'''
-check if there has been something posted to the server to be processed
-/*********** TO COMPLETE FOR EXERCISE 4 **********************************
-** 1: you need to implement the correct mongodb (three->six) as per the exercise description.
-** 2: please use the following if statements to implement (1). 
-** 3: you DO NOT NEED to change the manner in which the result is received,
-** 4: you MAY add helper arrays (declared at the top) as other properties to the returned objects
-**   if you wish. See the  examples for suggested implementation
-'''
+# '''
+# check if there has been something posted to the server to be processed
+# /*********** TO COMPLETE FOR EXERCISE 4 **********************************
+# ** 1: you need to implement the correct mongodb (three->six) as per the exercise description.
+# ** 2: please use the following if statements to implement (1). 
+# ** 3: you DO NOT NEED to change the manner in which the result is received,
+# ** 4: you MAY add helper arrays (declared at the top) as other properties to the returned objects
+# **   if you wish. See the  examples for suggested implementation
+# '''
 @app.route("/three")
 def three():
- return({"results":"not yet done"})
+    # All entries with positive after_moods
+    results = list(mongo.db.dataStuff.find({"after_mood": {"$in": positive_moods}}, {"_id": 0}))
+    return jsonify({"results": results})
 
 
 @app.route("/four")
 def four():
- return({"results":"not yet done"})
+    # All entries sorted alphabetically by event_name
+    results = list(mongo.db.dataStuff.find({}, {"_id": 0}).sort("event_name", 1))
+    return jsonify({"results": results})
+
 
 @app.route("/five")
 def five():
-    return({"results":"not yet done"})
+    # Entries for Monday & Tuesday, sorted by event_affect_strength
+    results = list(
+        mongo.db.dataStuff.find({"day": {"$in": ["Monday", "Tuesday"]}}, {"_id": 0}).sort("event_affect_strength", 1)
+    )
+    return jsonify({"results": results})
+
 
 @app.route("/six")
 def six():
-     return({"results":"not yet done"})
+    # Entries with negative start and after moods, sorted by weather
+    results = list(
+        mongo.db.dataStuff.find(
+            {"start_mood": {"$in": negative_moods}, "after_mood": {"$in": negative_moods}}, {"_id": 0}
+        ).sort("weather", 1)
+    )
+    return jsonify({"results": results})
 
 app.run(debug = True)
 

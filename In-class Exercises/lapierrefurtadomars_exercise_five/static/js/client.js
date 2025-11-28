@@ -67,23 +67,23 @@ window.onload = function () {
          ****/
         case "three": {
           console.log("three")
-          // TODO
+          visualizeThree(resJSON);
           break;
         }
         case "four": {
           console.log("four")
-          // TODO
+          visualizeFour(resJSON);
           break;
         }
 
         case "five": {
           console.log("five")
-          // TODO
+          visualizeFive(resJSON);
           break;
         }
         case "six": {
           console.log("six")
-          // TODO
+          visualizeSix(resJSON);
           break;
         }
         default: {
@@ -311,11 +311,11 @@ window.onload = function () {
     for (let i = 0; i < possibleDays.length; i++) {
       coloredDays[possibleDays[i]] = possibleColors[i];
     }
-/* for through each result
-1: create a new MyDataPoint object and pass the properties from the db result entry to the object constructor
-2: set the color using the coloredDays object associated with the resultSet[i].day
-3:  put into the dataPoints array.
-**/
+    /* for through each result
+    1: create a new MyDataPoint object and pass the properties from the db result entry to the object constructor
+    2: set the color using the coloredDays object associated with the resultSet[i].day
+    3:  put into the dataPoints array.
+    **/
     //set background of parent ... for fun ..
     document.querySelector("#parent-wrapper").style.background =
       "rgba(255,0,0,.4)";
@@ -360,4 +360,231 @@ window.onload = function () {
   } //function
 
   /***********************************************/
+
+  /******************* VISUALIZE THREE: Positive Mood Bubbles (Size-mapped) ******************/
+  function visualizeThree(resJSON) {
+    dataPoints = [];
+    const container = document.querySelector("#childOne");
+    container.innerHTML = "";
+    const description = document.querySelector("#Ex4_title");
+    description.textContent = "Positive Mood Balloons!";
+    container.style.background = "rgba(255, 245, 200, 0.3)";
+
+    const moodColors = {
+      happy: "rgba(255, 223, 100,0.8)",
+      neutral: "rgba(100, 200, 255,0.7)",
+      calm: "rgba(150, 255, 180,0.7)",
+      serene: "rgba(200, 250, 255,0.6)",
+      well: "rgba(255, 200, 200,0.7)"
+    };
+
+    const results = resJSON.results;
+
+    // Create balloon-like bubbles
+    results.forEach(r => {
+      const dp = new myDataPoint(
+        r.dataId, r.day, r.weather, r.start_mood, r.after_mood,
+        r.after_mood_strength, r.event_affect_strength, r.event_name,
+        moodColors[r.after_mood] || "rgba(200,200,200,0.5)",
+        container, "point_two"
+      );
+
+      // random starting position along the bottom
+      dp.xPos = Math.random() * (window.innerWidth - 50);
+      dp.yPos = 400 + Math.random() * 50;
+
+      // random balloon size
+      dp.size = 20 + Math.random() * 30;
+      dp.update(dp.xPos, dp.yPos);
+
+      // animation parameters
+      dp.floatSpeed = 0.5 + Math.random() * 1;    // upward speed
+      dp.swayAmplitude = 20 + Math.random() * 20; // side sway
+      dp.swayOffset = Math.random() * Math.PI * 2;
+
+      dataPoints.push(dp);
+    });
+
+    // Animate floating balloons
+    if (window.visualInterval) clearInterval(window.visualInterval);
+    window.visualInterval = setInterval(() => {
+      dataPoints.forEach(dp => {
+        dp.yPos -= dp.floatSpeed; // float upwards
+        if (dp.yPos + dp.size < 0) dp.yPos = 450; // reset from bottom
+        dp.xPos += Math.sin(Date.now() / 1000 + dp.swayOffset) * 0.5 * dp.swayAmplitude;
+        dp.update(dp.xPos, dp.yPos);
+      });
+    }, 30);
+  }
+
+  /******************* VISUALIZE FOUR: floating hovering orbs ******************/
+  function visualizeFour(resJSON) {
+    dataPoints = [];
+    const container = document.querySelector("#childOne");
+    container.innerHTML = "";
+    let description = document.querySelector("#Ex4_title");
+    description.textContent = "Event Timeline by Mood";
+    container.style.background = "rgba(220, 240, 255, 0.3)";
+
+    const colors = {
+      happy: "yellow",
+      neutral: "lightblue",
+      calm: "lightgreen",
+      serene: "aqua",
+      well: "pink",
+      sad: "purple",
+      angry: "red",
+      anxious: "orange",
+      moody: "grey",
+      hurt: "brown"
+    };
+
+    const results = resJSON.results;
+
+    // create event rows dynamically
+    const eventNames = [...new Set(results.map(r => r.event_name))];
+    let eventRows = {};
+    let currentY = 50;
+    const rowHeight = 40;
+    eventNames.forEach(ev => {
+      eventRows[ev] = currentY;
+      currentY += rowHeight;
+    });
+
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const xSpacing = 50;
+
+    // store points for animation
+    const points = [];
+
+    results.forEach(r => {
+      let dp = new myDataPoint(
+        r.dataId, r.day, r.weather, r.start_mood, r.after_mood,
+        r.after_mood_strength, r.event_affect_strength, r.event_name,
+        colors[r.after_mood] || "gray",
+        container, "point_two"
+      );
+
+      let xPos = xSpacing * (days.indexOf(r.day) + 1);
+      let yPos = eventRows[r.event_name];
+      dp.update(xPos, yPos);
+
+      // save original positions for animation
+      dp.origX = xPos;
+      dp.origY = yPos;
+      dp.offset = Math.random() * Math.PI * 2; // random phase for variation
+      points.push(dp);
+      dataPoints.push(dp);
+    });
+
+    // animate bouncing
+    setInterval(() => {
+      points.forEach(dp => {
+        let bounce = Math.sin(Date.now() / 500 + dp.offset) * 5; // vertical bounce
+        let sway = Math.cos(Date.now() / 700 + dp.offset) * 3;   // slight horizontal sway
+        dp.update(dp.origX + sway, dp.origY + bounce);
+      });
+    }, 50);
+  }
+
+
+  /******************* VISUALIZE FIVE: Animated Bar Chart ******************/
+  function visualizeFive(resJSON) {
+    dataPoints = [];
+    const container = document.querySelector("#childOne");
+    container.innerHTML = "";
+    let description = document.querySelector("#Ex4_title");
+    description.textContent = "Floating Event Strength Orbs";
+    container.style.background = "rgba(255, 230, 230, 0.3)";
+
+    const colors = {
+      happy: "yellow",
+      neutral: "lightblue",
+      calm: "lightgreen",
+      serene: "aqua",
+      well: "pink",
+      sad: "purple",
+      angry: "red",
+      anxious: "orange",
+      moody: "grey",
+      hurt: "brown"
+    };
+
+    const results = resJSON.results;
+    const points = [];
+
+    results.forEach((r, i) => {
+      let dp = new myDataPoint(
+        r.dataId, r.day, r.weather, r.start_mood, r.after_mood,
+        r.after_mood_strength, r.event_affect_strength, r.event_name,
+        colors[r.after_mood] || "rgba(255,150,150,0.7)",
+        container, "point_two"
+      );
+
+      dp.xPos = 50 + (i % 20) * 60;
+      dp.yPos = 100 + Math.random() * 200;
+      dp.origY = dp.yPos;
+      dp.offset = Math.random() * Math.PI * 2;
+      dp.update(dp.xPos, dp.yPos);
+
+      points.push(dp);
+      dataPoints.push(dp);
+    });
+
+    //animate floating up and down
+    setInterval(() => {
+      points.forEach(dp => {
+        dp.yPos = dp.origY + Math.sin(Date.now() / 500 + dp.offset) * 20;
+        dp.xPos += Math.cos(Date.now() / 700 + dp.offset) * 0.5;
+        dp.update(dp.xPos, dp.yPos);
+      });
+    }, 50);
+  }
+
+  /******************* VISUALIZE SIX: Stormy Clouds ******************/
+  function visualizeSix(resJSON) {
+    dataPoints = [];
+    const container = document.querySelector("#childOne");
+    container.innerHTML = "";
+    let description = document.querySelector("#Ex4_title");
+    description.textContent = "Stormy Negative Moods by Weather";
+    container.style.background = "rgba(200,200,255,0.2)";
+
+    const results = resJSON.results;
+
+    // extract unique weather types from results
+    const weatherGroups = {};
+    let currentX = 50;
+    const yStart = 100;
+
+    const uniqueWeather = [...new Set(results.map(r => r.weather))];
+    uniqueWeather.forEach(w => {
+      weatherGroups[w] = currentX;
+      currentX += 120;
+    });
+
+    const colors = {
+      sad: "purple",
+      angry: "red",
+      neutral: "gray",
+      anxious: "orange",
+      moody: "darkgrey",
+      hurt: "brown"
+    };
+
+    results.forEach(r => {
+      let dp = new myDataPoint(
+        r.dataId, r.day, r.weather, r.start_mood, r.after_mood,
+        r.after_mood_strength, r.event_affect_strength, r.event_name,
+        colors[r.after_mood] || "grey",
+        container, "point_two"
+      );
+
+      dp.xPos = weatherGroups[r.weather] + Math.random() * 50;
+      dp.yPos = yStart + Math.random() * 200;
+      dp.update(dp.xPos, dp.yPos);
+      dataPoints.push(dp);
+    });
+  }
+
 };
