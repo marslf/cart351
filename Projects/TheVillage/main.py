@@ -285,14 +285,45 @@ def get_users():
 def map_view():
     return render_template('map.html')
 
-@app.route("/games")
+@app.route('/games')
+# @login_required
 def games():
-    return render_template("games.html")
+    return render_template('games.html')
 
-@app.route("/games/slime")
+@app.route('/games/slime')
+# @login_required
 def game_slime():
-    return render_template("game_slime.html")
+    return render_template('game_slime.html')
 
+# coins 
+@app.route('/api/user/coins', methods=['GET'])
+@login_required
+def api_get_coins():
+    user = users_collection.find_one({'_id': ObjectId(current_user.id)}, {'password': 0})
+    coins = user.get('coins', 0)
+    return jsonify({'coins': coins}), 200
+
+# add coins to current user (POST) 
+@app.route('/api/user/coins/add', methods=['POST'])
+@login_required
+def api_add_coins():
+    data = request.get_json() or {}
+    try:
+        amount = int(data.get('amount', 0))
+    except (ValueError, TypeError):
+        return jsonify({'error': 'invalid amount'}), 400
+
+    if amount <= 0:
+        return jsonify({'error': 'amount must be positive'}), 400
+
+    users_collection.update_one(
+        {'_id': ObjectId(current_user.id)},
+        {'$inc': {'coins': amount}}
+    )
+
+    user = users_collection.find_one({'_id': ObjectId(current_user.id)}, {'password': 0})
+    coins = user.get('coins', 0)
+    return jsonify({'coins': coins}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
