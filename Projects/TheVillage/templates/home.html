@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}My Home | The Village{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="home-frame">
+        <!-- Background -->
+        <img src="{{ url_for('static', filename='images/home_bg.png') }}" alt="Home background" class="home-bg">
+
+        <!-- Furniture -->
+        <img id="furniture-chair" class="furniture"
+            src="{{ url_for('static', filename='images/furniture/chairs/chair1.png') }}" alt="Chair">
+        <img id="furniture-plant" class="furniture"
+            src="{{ url_for('static', filename='images/furniture/plants/plant1.png') }}" alt="Plant">
+        <img id="furniture-sofa" class="furniture"
+            src="{{ url_for('static', filename='images/furniture/sofas/sofa1.png') }}" alt="Sofa">
+        <img id="furniture-table" class="furniture"
+            src="{{ url_for('static', filename='images/furniture/table/table1.png') }}" alt="Table">
+        <img id="furniture-wallart" class="furniture"
+            src="{{ url_for('static', filename='images/furniture/wallart/wallart1.png') }}" alt="Wall Art">
+
+        <img id="edit-gear" src="{{ url_for('static', filename='images/gear.png') }}" alt="Edit" class="edit-gear">
+    </div>
+</div>
+
+<div id="edit-drawer" class="hidden">
+    <div class="drawer-header">
+        <h3>Edit Furniture</h3>
+        <button id="close-drawer">✕</button>
+    </div>
+    <div class="drawer-content">
+        <div class="furniture-row">
+            <span>Chair:</span>
+            <button class="swap-btn" data-target="chair" data-src="furniture/chairs/chair1.png">
+                <img src="{{ url_for('static', filename='images/furniture/chairs/chair1.png') }}" class="preview-thumb">
+            </button>
+            <button class="swap-btn" data-target="chair" data-src="furniture/chairs/chair2.png">
+                <img src="{{ url_for('static', filename='images/furniture/chairs/chair2.png') }}" class="preview-thumb">
+            </button>
+        </div>
+
+        <div class="furniture-row">
+            <span>Plant:</span>
+            <button class="swap-btn" data-target="plant" data-src="furniture/plants/plant1.png">
+                <img src="{{ url_for('static', filename='images/furniture/plants/plant1.png') }}" class="preview-thumb">
+            </button>
+            <button class="swap-btn" data-target="plant" data-src="furniture/plants/plant2.png">
+                <img src="{{ url_for('static', filename='images/furniture/plants/plant2.png') }}" class="preview-thumb">
+            </button>
+        </div>
+
+        <div class="furniture-row">
+            <span>Sofa:</span>
+            <button class="swap-btn" data-target="sofa" data-src="furniture/sofas/sofa1.png">
+                <img src="{{ url_for('static', filename='images/furniture/sofas/sofa1.png') }}" class="preview-thumb">
+            </button>
+            <button class="swap-btn" data-target="sofa" data-src="furniture/sofas/sofa2.png">
+                <img src="{{ url_for('static', filename='images/furniture/sofas/sofa2.png') }}" class="preview-thumb">
+            </button>
+        </div>
+
+        <div class="furniture-row">
+            <span>Table:</span>
+            <button class="swap-btn" data-target="table" data-src="furniture/table/table1.png">
+                <img src="{{ url_for('static', filename='images/furniture/table/table1.png') }}" class="preview-thumb">
+            </button>
+            <button class="swap-btn" data-target="table" data-src="furniture/table/table2.png">
+                <img src="{{ url_for('static', filename='images/furniture/table/table2.png') }}" class="preview-thumb">
+            </button>
+        </div>
+
+        <div class="furniture-row">
+            <span>Wall Art:</span>
+            <button class="swap-btn" data-target="wallart" data-src="furniture/wallart/wallart1.png">
+                <img src="{{ url_for('static', filename='images/furniture/wallart/wallart1.png') }}"
+                    class="preview-thumb">
+            </button>
+            <button class="swap-btn" data-target="wallart" data-src="furniture/wallart/wallart2.png">
+                <img src="{{ url_for('static', filename='images/furniture/wallart/wallart2.png') }}"
+                    class="preview-thumb">
+            </button>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

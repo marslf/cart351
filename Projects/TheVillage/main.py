@@ -286,12 +286,12 @@ def map_view():
     return render_template('map.html')
 
 @app.route('/games')
-# @login_required
+@login_required
 def games():
     return render_template('games.html')
 
 @app.route('/games/slime')
-# @login_required
+@login_required
 def game_slime():
     return render_template('game_slime.html')
 
@@ -324,6 +324,11 @@ def api_add_coins():
     user = users_collection.find_one({'_id': ObjectId(current_user.id)}, {'password': 0})
     coins = user.get('coins', 0)
     return jsonify({'coins': coins}), 200
+
+@app.route('/home')
+def my_home():
+    return render_template('home.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
