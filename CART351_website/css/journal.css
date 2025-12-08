@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  background-color: #fff7fb;
+  font-family: 'Nunito', sans-serif;
+  background-image: url("../static/img/paper-texture.png");
+  background-size: cover;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  width: 80%;
+  background-color: #ffddeb;
+  border: 4px solid #f7a3d5;
+  border-radius: 14px;
+  margin: 20px auto 40px auto;
+  box-shadow: 6px 6px 0px #f9bed9;
+}
+
+header h2 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 42px;
+}
+
+main {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+section {
+  background-color: #ffc6fe;
+  width: 40%;
+  border-radius: 12px;
+  border: 3px dashed #f04ad4;
+  padding-bottom: 10px;
+  box-shadow: 4px 4px 0px #ff8ee1;
+}
+
+section h4 {
+  background-color: #fff5ba;
+  margin: 0;
+  padding: 6px;
+  font-family: 'Handlee', cursive;
+  border-bottom: 2px dotted #e6d26e;
+  text-align: center;
+}
+
+section article {
+  background-color: #ffdbf8;
+  color: #9b007c;
+  padding: 10px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.home-button img {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.home-button img:hover {
+  transform: scale(1.2);
+}

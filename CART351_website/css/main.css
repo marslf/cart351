@@ -1,0 +1,81 @@
+/* --- GLOBAL RESET --- */
+body {
+  margin: 0;
+  background-color: #fff7fb;
+  font-family: 'Nunito', sans-serif;
+  background-image: url("../static/img/paper-texture.png");
+  background-size: cover;
+}
+
+/* --- HEADER (clean & cute) --- */
+header {
+  text-align: center;
+  padding: 22px;
+  margin: 20px auto;
+  width: 70%;
+  background-color: #ffe2f7;
+  border: 3px dashed #ff9de6;
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px #ffbad6;
+}
+
+header h2 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 42px;
+  margin-bottom: 5px;
+}
+
+header h3,
+header h4 {
+  font-family: 'Handlee', cursive;
+}
+
+/* --- MAIN CONTAINER --- */
+main {
+  width: 80%;
+  margin: 0 auto 60px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* --- CATEGORY LABELS --- */
+p {
+  width: fit-content;
+  font-family: 'Handlee', cursive;
+  font-size: 22px;
+  background-color: #fff5ba;
+  padding: 6px 14px;
+  border: 2px solid #e6d26e;
+  border-radius: 12px;
+}
+
+/* --- LINKS --- */
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #c23cc8;
+}
+
+a:hover {
+  background-color: #ffcef8;
+  padding: 3px 6px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+/* --- LIST STICKER STYLE --- */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #e9d9ff;
+  padding: 8px 12px;
+  margin-top: 5px;
+  border-radius: 12px;
+  border: 2px solid #c5b0f6;
+  font-family: 'Handlee', cursive;
+}

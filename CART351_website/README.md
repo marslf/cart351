@@ -1,0 +1,2 @@
+paper texture background: https://unsplash.com/photos/white-painted-wall-with-black-line-vS3idIiYxX0 
+home sticker: https://www.flaticon.com/free-sticker/property_7648203?term=house&page=1&position=1&origin=tag&related_id=7648203 
