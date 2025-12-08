@@ -42,7 +42,7 @@ nav a {
     overflow: hidden;
 }
 
-.dropdown-content a, 
+.dropdown-content a,
 .dropdown-content span {
     font-weight: normal;
     color: #000;
@@ -209,7 +209,7 @@ h2 {
     padding: 20px;
     margin: 15px;
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     vertical-align: top;
 }
 
@@ -270,7 +270,8 @@ h2 {
     margin: 0;
 }
 
-.accept-btn, .decline-btn {
+.accept-btn,
+.decline-btn {
     border: none;
     cursor: pointer;
     background-color: transparent;
@@ -301,7 +302,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .friend-name {

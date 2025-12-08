@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 houseData.forEach(house => {
                     const houseEl = grid.querySelector(`[data-id='${house.id}']`);
-                    
+
                     house.friends.forEach(friendId => {
                         // create a unique key (smaller-larger) to avoid drawing the same line twice
                         const key = [house.id, friendId].sort().join('-');
@@ -82,6 +82,6 @@ function drawLine(svg, el1, el2, container) {
     line.setAttribute('y2', y2);
     line.setAttribute('stroke', '#555');
     line.setAttribute('stroke-width', '4');
-    
+
     svg.appendChild(line);
 }

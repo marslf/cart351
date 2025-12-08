@@ -285,6 +285,14 @@ def get_users():
 def map_view():
     return render_template('map.html')
 
+@app.route("/games")
+def games():
+    return render_template("games.html")
+
+@app.route("/games/slime")
+def game_slime():
+    return render_template("game_slime.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

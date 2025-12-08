@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Whack-A-Slime | The Village{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h1 class="page-title">Whack-A-Slime!</h1>
+    <p>Squish the slimes as they pop up!</p>
+
+    <div id="game-container">
+        <div id="score">Score: 0</div>
+        <div id="slime-grid"></div>
+        <button id="restart-btn" class="big-button" style="margin-top:20px;">Restart</button>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/static/css/slime.css">
+<script src="/static/js/slime.js"></script>
+{% endblock %}
