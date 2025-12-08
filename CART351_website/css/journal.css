@@ -10,11 +10,11 @@ header {
   text-align: center;
   padding: 20px;
   width: 80%;
-  background-color: #ffddeb;
-  border: 4px solid #f7a3d5;
+  background-color: #dde9ff;
+  border: 4px solid #a3c7f7;
   border-radius: 14px;
   margin: 20px auto 40px auto;
-  box-shadow: 6px 6px 0px #f9bed9;
+  box-shadow: 6px 6px 0px #bec7f9;
 }
 
 header h2 {
@@ -31,12 +31,12 @@ main {
 }
 
 section {
-  background-color: #ffc6fe;
+  background-color: #c6daff;
   width: 40%;
   border-radius: 12px;
-  border: 3px dashed #f04ad4;
+  border: 3px dashed #4aaef0;
   padding-bottom: 10px;
-  box-shadow: 4px 4px 0px #ff8ee1;
+  box-shadow: 4px 4px 0px #8ea3ff;
 }
 
 section h4 {
@@ -49,8 +49,8 @@ section h4 {
 }
 
 section article {
-  background-color: #ffdbf8;
-  color: #9b007c;
+  background-color: #dfdbff;
+  color: #00509b;
   padding: 10px;
   font-family: 'Nunito', sans-serif;
 }

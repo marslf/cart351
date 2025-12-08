@@ -7,16 +7,16 @@ body {
   background-size: cover;
 }
 
-/* --- HEADER (clean & cute) --- */
+/* --- HEADER --- */
 header {
   text-align: center;
   padding: 22px;
   margin: 20px auto;
   width: 70%;
-  background-color: #ffe2f7;
-  border: 3px dashed #ff9de6;
+  background-color: #e2e4ff;
+  border: 3px dashed #9dd0ff;
   border-radius: 16px;
-  box-shadow: 4px 4px 0px #ffbad6;
+  box-shadow: 4px 4px 0px #c9baff;
 }
 
 header h2 {
@@ -55,11 +55,11 @@ p {
 a {
   text-decoration: none;
   font-weight: bold;
-  color: #c23cc8;
+  color: #893cc8;
 }
 
 a:hover {
-  background-color: #ffcef8;
+  background-color: #ced7ff;
   padding: 3px 6px;
   border-radius: 6px;
   transition: 0.2s;
@@ -72,10 +72,10 @@ ul {
 }
 
 li {
-  background-color: #e9d9ff;
+  background-color: #d9e9ff;
   padding: 8px 12px;
   margin-top: 5px;
   border-radius: 12px;
-  border: 2px solid #c5b0f6;
+  border: 2px solid #b0c0f6;
   font-family: 'Handlee', cursive;
 }
