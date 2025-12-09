@@ -286,12 +286,12 @@ def map_view():
     return render_template('map.html')
 
 @app.route('/games')
-@login_required
+# @login_required
 def games():
     return render_template('games.html')
 
 @app.route('/games/slime')
-@login_required
+# @login_required
 def game_slime():
     return render_template('game_slime.html')
 
@@ -328,6 +328,12 @@ def api_add_coins():
 @app.route('/home')
 def my_home():
     return render_template('home.html')
+
+@app.route('/games/matching')
+# login_required
+def matching_game():
+    return render_template('game_matching.html')
+
 
 
 if __name__ == '__main__':
