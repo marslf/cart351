@@ -72,6 +72,7 @@
     margin: 6px;
     border: 2px solid #913d00;
     box-shadow: 0 3px 0 #913d00;
+    font-family: futura-pt-condensed, sans-serif;
 }
 
 #restart-btn:hover,

@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const houseData = users.map(user => ({
                 id: user._id,
                 name: user.username,
-                friends: user.friends || []
+                friends: user.friends || [],
+                house: user.house || '1'
             }));
 
             houseData.forEach(house => {
@@ -31,6 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 houseDiv.className = 'house-placeholder';
                 houseDiv.dataset.id = house.id;
                 houseDiv.style.zIndex = '1';
+                houseDiv.style.cursor = 'pointer';
+
+                houseDiv.addEventListener('click', () => {
+                    window.location.href = `/visit/${house.id}`;
+                });
+
+                const img = document.createElement('img');
+                img.src = `/static/images/houses/house${house.house}.png`;
+                img.className = 'house-img';
+                img.alt = 'House';
+                houseDiv.appendChild(img);
 
                 const label = document.createElement('span');
                 label.className = 'house-label';
@@ -46,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 houseData.forEach(house => {
                     const houseEl = grid.querySelector(`[data-id='${house.id}']`);
-
+                    
                     house.friends.forEach(friendId => {
                         // create a unique key (smaller-larger) to avoid drawing the same line twice
                         const key = [house.id, friendId].sort().join('-');
@@ -82,6 +94,6 @@ function drawLine(svg, el1, el2, container) {
     line.setAttribute('y2', y2);
     line.setAttribute('stroke', '#555');
     line.setAttribute('stroke-width', '4');
-
+    
     svg.appendChild(line);
 }

@@ -1,3 +1,5 @@
+/* --- Village Whack-A-Slime overrides & layout --- */
+
 .game-title {
     font-size: 3.5rem !important;
     color: #d66b1d;
@@ -117,27 +119,6 @@
 .game-over-card p {
     font-size: 1.5em;
     margin-bottom: 20px;
-}
-
-#restart-btn,
-.back-btn {
-    display: inline-block;
-    background-color: #e4ac50;
-    color: #913d00;
-    padding: 10px 26px;
-    border-radius: 18px;
-    font-size: 1.3em;
-    font-weight: 600;
-    text-decoration: none;
-    margin: 6px;
-    border: 2px solid #913d00;
-    box-shadow: 0 3px 0 #913d00;
-}
-
-#restart-btn:hover,
-.back-btn:hover {
-    background-color: #f7cf7a;
-    cursor: pointer;
 }
 
 #hud {

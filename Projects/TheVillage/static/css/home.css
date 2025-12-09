@@ -1,17 +1,22 @@
 .home-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: 20px;
     position: relative;
 }
 
+.coin-icon-small {
+    width: 14px;
+    vertical-align: middle;
+    margin-left: 2px;
+    margin-bottom: 2px;
+}
+
 .home-frame {
-    width: 900px;
+    width: 80%;
     margin: 0 auto;
     position: relative;
     border: 8px solid #2a1f1f;
-    border-radius: 14px;
     background-color: #1d1515;
     overflow: hidden;
 }
@@ -19,7 +24,6 @@
 .home-bg {
     width: 100%;
     display: block;
-    border-radius: 8px;
 }
 
 .furniture {
@@ -67,23 +71,24 @@
     cursor: pointer;
 }
 
-
 #edit-drawer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    position: relative;
     background: #f3f0e7;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-    z-index: 999;
+    width: 300px;
+    max-height: 600px; 
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #2a1f1f;
 }
 
-#edit-drawer.visible {
-    transform: translateY(0);
+.hidden {
+    display: none !important;
+}
+
+h4 {
+    width: 100%;
+    margin: 0;
+    font-size: 1.2em;
 }
 
 .drawer-header {
@@ -92,26 +97,39 @@
     align-items: center;
     padding: 12px 20px;
     border-bottom: 1px solid #ccc;
+    flex-shrink: 0;
 }
 
 .drawer-header h3 {
     margin: 0;
-    font-family: 'Futura PT Condensed', sans-serif;
+    font-family: futura-pt-condensed, sans-serif;
+    padding: 0;
 }
 
 .drawer-content {
     padding: 12px 20px;
+    display: flex;
+    justify-content: flex-start; 
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
 .furniture-row {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    align-items: flex-start;
     gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eee;
 }
 
 .furniture-row span {
-    width: 80px;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .swap-btn {
@@ -121,7 +139,7 @@
     background: #e4ac50;
     color: #913d00;
     cursor: pointer;
-    font-family: 'Futura PT Condensed', sans-serif;
+    font-family: futura-pt-condensed, sans-serif;
 }
 
 .swap-btn:hover {
@@ -140,5 +158,48 @@
     height: auto;
     margin: 0 4px;
     vertical-align: middle;
-    border-radius: 3px;
+}
+
+.shop-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background: #fff;
+    padding: 5px;
+}
+
+.shop-btn {
+    padding: 4px 8px;
+    border: none;
+    cursor: pointer;
+    font-family: futura-pt-condensed, sans-serif;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.btn-buy {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-buy:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-equip {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-remove {
+    background: #f44336;
+    color: white;
+}
+
+.btn-equipped {
+    background: #e0e0e0;
+    color: #666;
+    cursor: default;
 }
