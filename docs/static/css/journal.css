@@ -57,11 +57,22 @@ section article {
 
 .home-button img {
   width: 100px;
-  height: 100px;
+  height: 120px;
   cursor: pointer;
   transition: transform 0.2s;
+  position: fixed;
+  top: 15px;
+  left: 15px;
 }
 
 .home-button img:hover {
   transform: scale(1.2);
+}
+
+#bee {
+  position: absolute;
+  width: 50px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s linear;
 }

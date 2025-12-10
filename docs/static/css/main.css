@@ -79,3 +79,24 @@ li {
   border: 2px solid #b0c0f6;
   font-family: 'Handlee', cursive;
 }
+
+.journal-button img {
+  width: 100px;
+  height: 120px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+}
+
+.journal-button img:hover {
+  transform: scale(1.2);
+}
+
+#ladybug {
+  position: absolute;
+  width: 50px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s linear;
+}
